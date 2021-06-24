@@ -1,6 +1,6 @@
 import  { Component } from 'react'
 
-class AdminPanel extends Component {
+class Dashboard extends Component {
     render() {
         return (
             <div>
@@ -9,4 +9,4 @@ class AdminPanel extends Component {
         )
     }
 }
-export {AdminPanel}
+export {Dashboard}
