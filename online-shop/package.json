@@ -16,7 +16,9 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "json-server": "json-server --watch ./db.json --port 3004",
+    "node-server": "node server",
+    "start":"concurrently --kill-others \"react-scripts start\" \"npm run json-server\" \"npm run node-server\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
