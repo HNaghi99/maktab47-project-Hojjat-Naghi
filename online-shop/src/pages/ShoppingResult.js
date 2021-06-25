@@ -4,7 +4,7 @@ class ShoppingResult extends Component {
     render() {
         return (
             <div>
-                
+                ShoppingResult
             </div>
         )
     }

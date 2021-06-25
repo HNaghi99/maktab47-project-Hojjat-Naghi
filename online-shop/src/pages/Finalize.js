@@ -4,7 +4,7 @@ class Finalize extends Component {
     render() {
         return (
             <div>
-                
+                Finalize
             </div>
         )
     }
