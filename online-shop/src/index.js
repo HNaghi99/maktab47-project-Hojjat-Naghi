@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Home } from './pages/Index';
+import '../src/asset/css-normalize/normalize.css'
 import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
     <Home />
