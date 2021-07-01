@@ -13,8 +13,10 @@ import {
   Payment,
   ProductDetail,
   ShoppingResult,
+  Orders,
+  Wares,
+  Stock,
 } from "../pages/Index";
-
 class Router extends Component {
   render() {
     return (
@@ -57,6 +59,8 @@ class Router extends Component {
             exact
           />
           <PrivateRoute component={Dashboard} path="/dashboard" exact />
+          {/* <PrivateRoute component={Stock} path="/dashboard/stock" exact />
+          <PrivateRoute component={Orders} path="/dashboard/orders" exact /> */}
         </Switch>
       </BrowserRouter>
     );

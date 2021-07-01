@@ -5,7 +5,7 @@ class Main extends Component {
   render() {
     return (
       <>
-        {this.props.isPublic ? PublicHeader : PrivateHeader}
+        {this.props.isPublic ? <PublicHeader /> : <PrivateHeader />}
         {this.props.children}
       </>
     );

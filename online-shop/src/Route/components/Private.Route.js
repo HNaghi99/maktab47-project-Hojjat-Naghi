@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { isLogin } from "../../utils/IsLogin";
+import { Main } from "../../layout/Main";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
@@ -9,7 +10,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        isLogin ? <Component {...props} /> : <Redirect to="/login" />
+        isLogin ? (
+          <Main isPublic={false}>{/* <Component {...props} /> */}</Main> //TODO:handle state passing by redux
+        ) : (
+          <Redirect to="/login" />
+        )
       }
     />
   );
