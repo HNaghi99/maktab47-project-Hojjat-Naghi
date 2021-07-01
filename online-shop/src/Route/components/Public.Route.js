@@ -8,15 +8,19 @@ const PublicRoute = ({ component: Component, restricted, ...rest }) => {
     // restricted = true meaning restricted route
     <Route
       {...rest}
-      render={(props) =>
-        isLogin && restricted ? (
-          <Redirect to="/dashboard/wares" />
-        ) : (
-          <Main isPublic={true}>
-            <Component {...props} />
-          </Main>
-        )
-      }
+      render={(props) => {
+        if (isLogin === false && restricted === true)
+          return <Component {...props} />;
+        else {
+          return isLogin && restricted ? (
+            <Redirect to="/dashboard" />
+          ) : (
+            <Main isPublic={true}>
+              <Component {...props} />
+            </Main>
+          );
+        }
+      }}
     />
   );
 };

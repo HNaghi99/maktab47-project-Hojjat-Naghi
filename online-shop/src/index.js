@@ -6,6 +6,7 @@ import Router from "./Route/Route.app";
 import PublicHeader from "./layout/components/PublicHeader";
 import PrivateHeader from "./layout/components/PrivateHeader";
 import { Main } from "./layout/Main";
+import { Login } from "./pages/Login/Login";
 import reportWebVitals from "./reportWebVitals";
 ReactDOM.render(<Router />, document.getElementById("root"));
 
