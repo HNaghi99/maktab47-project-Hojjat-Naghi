@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { isLogin } from "../../utils/IsLogin";
-
+import { Main } from "../../layout/Main";
 const PublicRoute = ({ component: Component, restricted, ...rest }) => {
   return (
     // restricted = false meaning public route
@@ -12,7 +12,9 @@ const PublicRoute = ({ component: Component, restricted, ...rest }) => {
         isLogin && restricted ? (
           <Redirect to="/dashboard" />
         ) : (
-          <Component {...props} />
+          <Main isPublic={true}>
+            <Component {...props} />
+          </Main>
         )
       }
     />
