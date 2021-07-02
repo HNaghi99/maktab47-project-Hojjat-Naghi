@@ -4,7 +4,7 @@ export class SubmitButton extends Component {
   render() {
     return (
       <Box my={"8px"} display="flex" justifyContent="center">
-        <Button variant="contained" color="primary">
+        <Button type="submit" variant="contained" color="primary">
           ورود
         </Button>
       </Box>

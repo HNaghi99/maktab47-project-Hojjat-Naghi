@@ -9,6 +9,8 @@ import PropTypes from "prop-types";
 import { Orders } from "../../pages/Orders";
 import { Stock } from "../../pages/Stock";
 import { Wares } from "../../pages/Wares";
+import { IsLogin } from "../../utils/IsLogin";
+import { useContext } from "react";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -43,6 +45,8 @@ function a11yProps(index) {
 }
 export default function PrivateHeader() {
   const [value, setValue] = React.useState(0);
+  const isLogin = useContext(IsLogin).value;
+  const loginHandler = useContext(IsLogin).handler;
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -82,6 +86,7 @@ export default function PrivateHeader() {
               fontWeight="fontWeightBold"
               style={{ textDecoration: "none" }}
               mx={"15px"}
+              onClick={() => loginHandler(isLogin)}
             >
               بازگشت به سایت
             </Box>

@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "concurrently": "^6.2.0",
+    "joi": "^17.4.0",
     "json-server": "^0.16.3",
     "jss-rtl": "^0.3.0",
     "multer": "^1.4.2",

@@ -8,7 +8,9 @@ import PrivateHeader from "./layout/components/PrivateHeader";
 import { Main } from "./layout/Main";
 import { Login } from "./pages/Login/Login";
 import reportWebVitals from "./reportWebVitals";
-ReactDOM.render(<Router />, document.getElementById("root"));
+import { App } from "./App";
+import PublicRoute from "./Route/components/Public.Route";
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
