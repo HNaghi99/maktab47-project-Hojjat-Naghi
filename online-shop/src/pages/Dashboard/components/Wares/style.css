@@ -1,0 +1,46 @@
+.MuiTablePagination-root {
+  display: flex;
+  justify-content: center;
+}
+.MuiTablePagination-actions {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.MuiTablePagination-spacer::after {
+  content: "تعداد محصول در هر صفحه";
+  font-weight: bold;
+  font-size: medium;
+}
+.MuiTablePagination-caption {
+  display: none;
+}
+/* .cell {
+  font-size: large;
+  font-weight: bold;
+} */
+.MuiTableRow-root td {
+  font-size: large;
+  font-weight: bold;
+}
+.MuiButtonBase-root {
+  width: 90px;
+}
+.MuiSvgIcon-root {
+  margin-left: 4px;
+}
+span.MuiButton-startIcon {
+  margin-right: 0;
+}
+.buttons {
+  display: flex;
+}
+button.add {
+  background-color: #4caf50;
+  color: white;
+  margin-bottom: 14px;
+  font-weight: bold;
+  margin-left: 16px;
+}
+.add-product {
+  direction: ltr;
+}

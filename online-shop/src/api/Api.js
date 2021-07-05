@@ -5,4 +5,10 @@ function getProducts() {
     .then((response) => response.data)
     .catch((error) => error);
 }
-export { getProducts };
+function getOrders() {
+  return http
+    .get("/orders")
+    .then((response) => response.data)
+    .catch((error) => error);
+}
+export { getProducts, getOrders };

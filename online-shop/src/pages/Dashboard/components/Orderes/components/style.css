@@ -1,0 +1,9 @@
+label.MuiFormControlLabel-root {
+  flex-direction: row-reverse;
+}
+div.MuiFormGroup-root {
+  flex-direction: row;
+}
+span.MuiButtonBase-root {
+  width: 12px;
+}

@@ -1,0 +1,13 @@
+button.save {
+  background-color: #4caf50;
+  color: white;
+  margin-bottom: 14px;
+  font-weight: bold;
+  margin-left: 16px;
+}
+.save-product {
+  direction: ltr;
+}
+p.MuiTypography-root {
+  font-weight: bold;
+}

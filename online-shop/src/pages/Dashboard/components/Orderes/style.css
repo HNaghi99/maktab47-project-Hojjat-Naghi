@@ -1,0 +1,22 @@
+span.MuiTypography-root {
+  font-weight: bold;
+}
+.radio-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 14px;
+  margin-left: 16px;
+  font-weight: bold;
+}
+button.success {
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+  margin-left: 16px;
+}
+button.warning {
+  background-color: #ffcc00;
+  color: white;
+  font-weight: bold;
+  margin-left: 16px;
+}
