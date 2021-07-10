@@ -11,4 +11,37 @@ function getOrders() {
     .then((response) => response.data)
     .catch((error) => error);
 }
-export { getProducts, getOrders };
+function getGroups() {
+  return http
+    .get("/groups")
+    .then((response) => response.data)
+    .catch((error) => error);
+}
+function deleteProduct(id) {
+  return http
+    .delete(`/products/${id}`)
+    .then((response) => response.data)
+    .catch((error) => error);
+}
+function patchProduct(data, id) {
+  // const headers = data.getHeaders();
+  return http
+    .patch(`/products/${id}`, data)
+    .then((response) => response.data)
+    .catch((error) => error);
+}
+function postProduct(data) {
+  // const headers = data.getHeaders();
+  return http
+    .post(`/products`, data)
+    .then((response) => response.data)
+    .catch((error) => error);
+}
+export {
+  getProducts,
+  getOrders,
+  getGroups,
+  deleteProduct,
+  patchProduct,
+  postProduct,
+};

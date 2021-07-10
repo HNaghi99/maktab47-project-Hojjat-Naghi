@@ -15,7 +15,11 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { Text } from "./components/Text";
+import { patchProduct } from "../../../../api/Api";
 import { instanceOf, string } from "prop-types";
+import joi from "joi";
+import { SnackbarProvider, useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
 
 const columns = [
   { id: "picture", label: "کالا", minWidth: 170 },
@@ -42,22 +46,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Stock() {
+export function StockComponent() {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const handleClickVariant = (message, variant) => {
+    enqueueSnackbar(
+      message,
+      { variant },
+      {
+        anchorOrigin: {
+          vertical: "bottom",
+          horizontal: "right",
+        },
+        TransitionComponent: Slide,
+      }
+    );
+  };
+  const schema = joi.object({
+    stock: joi
+      .number()
+      .min(1)
+      .error(new Error("موجودی بایستی به صورت عدد و بزرگتر از صفر باشد")),
+    price: joi
+      .number()
+      .min(1)
+      .error(new Error("قیمت بایستی به صورت عدد و بزرگتر از صفر باشد")),
+  });
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [products, setProducts] = React.useState([]);
+  const [modified, setModified] = React.useState([]);
+  // const [obj, setObj] = React.useState({});
+  const [flag, setFlag] = React.useState(true);
   React.useEffect(() => {
     async function dataProvider() {
-      // const products = await getProducts();
-      // console.log("products:", products, products instanceof Array);
-      // console.log(products);
       console.log(getProducts);
       return getProducts();
     }
     const data = dataProvider();
     data.then((product) => setProducts(product));
-  }, []);
+  }, [flag]);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -66,13 +94,53 @@ export function Stock() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  const saveHandler = () => {
+    let changedProductsId = modified;
+    //filter same id
+    changedProductsId = [...new Set(changedProductsId)];
+    //
+    changedProductsId.forEach((id) => {
+      const formData = new FormData();
+      const changedProperties = products.find((product) => product.id === id);
+      let editedData = schema.validate({
+        stock: changedProperties.stock,
+        price: changedProperties.price,
+      });
+      try {
+        if (editedData.error) throw new Error(editedData.error.message);
+        else {
+          formData.append("price", changedProperties.price);
+          formData.append("stock", changedProperties.stock);
+          patchProduct(formData, id).then(() => {
+            setFlag(!flag);
+            handleClickVariant("ویرایش با موفقیت انجام شد", "success");
+          });
+        }
+      } catch (error) {
+        console.log("message is:", error.message);
+        handleClickVariant(error.message, "error");
+      }
+    });
+  };
+  const passStock = (value, id) => {
+    setModified([...modified, id]);
+    const modifiedProducts = products;
+    modifiedProducts.find((product) => product.id === id).stock = value;
+    setProducts(modifiedProducts);
+  };
+  const passPrice = (value, id) => {
+    setModified([...modified, id]);
+    const modifiedProducts = products;
+    modifiedProducts.find((product) => product.id === id).price = value;
+    setProducts(modifiedProducts);
+  };
 
   return (
     <>
       <div className="save-product">
         <Button
           variant="contained"
-          // color="green"
+          onClick={saveHandler}
           className={(classes.button, "save")}
           startIcon={<SaveIcon />}
         >
@@ -87,7 +155,6 @@ export function Stock() {
                 {columns.map((column) => (
                   <TableCell
                     key={column.id}
-                    //   align={column.align}
                     align={"center"}
                     style={{
                       minWidth: column.minWidth,
@@ -110,33 +177,22 @@ export function Stock() {
                         {product.description}
                       </TableCell>
                       <TableCell align="center" className="cell">
-                        <Text value={product.price} />
+                        <Text
+                          value={product.price}
+                          id={product.id}
+                          onChange={passPrice}
+                        />
                       </TableCell>
                       <TableCell align="center" className="cell">
-                        <Text value={product.stock} />
+                        <Text
+                          value={product.stock}
+                          id={product.id}
+                          onChange={passStock}
+                        />
                       </TableCell>
                     </TableRow>
                   );
                 })}
-
-              {/* {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={"center"}>
-                          {column.format && typeof value === "number"
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })} */}
             </TableBody>
           </Table>
         </TableContainer>
@@ -151,5 +207,18 @@ export function Stock() {
         />
       </Paper>
     </>
+  );
+}
+export function Stock(props) {
+  return (
+    <SnackbarProvider
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "right",
+      }}
+      TransitionComponent={Slide}
+    >
+      <StockComponent />
+    </SnackbarProvider>
   );
 }

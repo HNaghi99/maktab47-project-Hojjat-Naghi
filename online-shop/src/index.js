@@ -9,6 +9,7 @@ import { Main } from "./layout/Main";
 import { Login } from "./pages/Login/Login";
 import reportWebVitals from "./reportWebVitals";
 import { App } from "./App";
+import { LoginPage } from "./pages/Login/Login";
 import PublicRoute from "./Route/components/Public.Route";
 ReactDOM.render(<App />, document.getElementById("root"));
 

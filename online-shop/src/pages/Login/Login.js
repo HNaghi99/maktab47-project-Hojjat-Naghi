@@ -2,20 +2,22 @@ import { Component } from "react";
 import { Box } from "@material-ui/core";
 import { InputField } from "./components/InputField";
 import { SubmitButton } from "./components/Button";
-import { ErrorMessage } from "./components/ErrorMessage";
 import { Link, Redirect, Route } from "react-router-dom";
 import { useContext, useState } from "react";
 import { IsLogin } from "../../utils/IsLogin";
+import { SnackbarProvider, useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
 import joi from "joi";
 
 function Login() {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  // const enqueueSnackbar = useSnackbar();
   const schema = joi.object({
     username: joi.string().min(6).required(),
     password: joi.string().min(6),
   });
   const [username, setUsername] = useState({});
   const [password, setPassword] = useState({});
-  const [err, setErr] = useState("");
   const handler = useContext(IsLogin).handler;
   const isLogin = useContext(IsLogin).value;
   const userNameHandler = (value) => {
@@ -23,6 +25,19 @@ function Login() {
   };
   const passwordHandler = (value) => {
     setPassword(value);
+  };
+  const handleClickVariant = (message, variant) => {
+    enqueueSnackbar(
+      message,
+      { variant },
+      {
+        anchorOrigin: {
+          vertical: "bottom",
+          horizontal: "right",
+        },
+        TransitionComponent: Slide,
+      }
+    );
   };
   const submitHandler = (event, variant) => {
     event.preventDefault();
@@ -38,15 +53,13 @@ function Login() {
         value.value.username === "hojjat" &&
         value.value.password === "123456"
       ) {
-        console.log(value);
         handler(isLogin);
       } else {
         throw new Error("نام کاربری و کلمه عبور وارد شده صحیح نمی باشد");
       }
     } catch (error) {
-      setErr(error.message);
+      handleClickVariant(error.message, "error");
     }
-    console.log("form submitted");
   };
   return (
     <Box
@@ -86,10 +99,21 @@ function Login() {
           >
             بازگشت به سایت
           </Box>
-          <ErrorMessage value={err} />
         </Box>
       </form>
     </Box>
   );
 }
-export { Login };
+export function LoginPage() {
+  return (
+    <SnackbarProvider
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "right",
+      }}
+      TransitionComponent={Slide}
+    >
+      <Login />
+    </SnackbarProvider>
+  );
+}

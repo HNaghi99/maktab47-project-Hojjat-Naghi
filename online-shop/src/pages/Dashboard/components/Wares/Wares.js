@@ -2,8 +2,10 @@ import React from "react";
 import "./style.css";
 import { getProducts } from "../../../../api/Api";
 import { makeStyles } from "@material-ui/core/styles";
+import { DeleteButton } from "./components/DeleteButton";
+import { EditButton } from "./components/EditButton";
 import Button from "@material-ui/core/Button";
-import DeleteIcon from "@material-ui/icons/Delete";
+import TextField from "@material-ui/core/TextField";
 import EditIcon from "@material-ui/icons/Edit";
 import AddIcon from "@material-ui/icons/Add";
 import Paper from "@material-ui/core/Paper";
@@ -15,6 +17,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { instanceOf, string } from "prop-types";
+import { AddButton } from "./components/AddButton";
 
 const columns = [
   { id: "picture", label: "تصویر", minWidth: 170 },
@@ -41,40 +44,43 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
 }));
-
 export function Wares() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [products, setProducts] = React.useState([]);
+  const [deletedProductId, setDeletedId] = React.useState("");
+  const [editedProductId, setEditedId] = React.useState([2]);
+  const [addedProduct, setAddProduct] = React.useState([1]);
   React.useEffect(() => {
-    async function dataProvider() {
-      console.log(getProducts);
+    const dataProvider = async () => {
       return getProducts();
-    }
+    };
+    // dataProvider();
     const data = dataProvider();
     data.then((product) => setProducts(product));
-  }, []);
+  }, [deletedProductId, editedProductId, addedProduct]);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
+  const handleDeleteProduct = (id) => {};
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+  const deleteHandler = (id) => {
+    setDeletedId(id);
+  };
+  const editHandler = (id) => {
+    setEditedId([...editedProductId, id]);
+  };
+  const addHandler = (id) => {
+    setAddProduct([...addedProduct, id]);
+  };
   return (
     <>
-      <div className="add-product">
-        <Button
-          variant="contained"
-          className={(classes.button, "add")}
-          startIcon={<AddIcon />}
-        >
-          افزودن کالا
-        </Button>
-      </div>
+      <AddButton class={classes.button} onSelect={addHandler} />
       <Paper className={classes.root}>
         <TableContainer className={classes.container}>
           <Table stickyHeader aria-label="sticky table">
@@ -118,22 +124,17 @@ export function Wares() {
                       </TableCell>
                       <TableCell align="center" className="cell">
                         <div className="buttons">
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                            startIcon={<EditIcon />}
-                          >
-                            ویرایش
-                          </Button>
-                          <Button
-                            variant="contained"
-                            color="secondary"
-                            className={classes.button}
-                            startIcon={<DeleteIcon />}
-                          >
-                            حذف
-                          </Button>
+                          <EditButton
+                            class={classes.button}
+                            id={product.id}
+                            product={product}
+                            onSelect={editHandler}
+                          />
+                          <DeleteButton
+                            class={classes.button}
+                            id={product.id}
+                            onSelect={deleteHandler}
+                          />
                         </div>
                       </TableCell>
                     </TableRow>

@@ -14,9 +14,36 @@ button.success {
   font-weight: bold;
   margin-left: 16px;
 }
+button.success:hover {
+  background-color: #26c32b;
+}
 button.warning {
   background-color: #ffcc00;
   color: white;
   font-weight: bold;
   margin-left: 16px;
+}
+button.warning:hover {
+  background-color: #fbff00;
+}
+.customer-field {
+  padding: 2px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.delivered-alert {
+  background-color: #26c32b;
+  padding: 8px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+}
+.delivery-time {
+  font-weight: bold;
+  margin: 10px 0;
+}
+.customer-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

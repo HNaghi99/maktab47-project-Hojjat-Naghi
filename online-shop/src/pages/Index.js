@@ -16,7 +16,7 @@ export {
   Finalize,
   Home,
   List,
-  Login,
+  // Login,
   Payment,
   ShoppingResult,
   ProductDetail,

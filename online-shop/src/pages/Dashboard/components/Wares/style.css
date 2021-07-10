@@ -7,7 +7,7 @@
   flex-direction: row-reverse;
 }
 .MuiTablePagination-spacer::after {
-  content: "تعداد محصول در هر صفحه";
+  content: "تعداد سطر در هر صفحه";
   font-weight: bold;
   font-size: medium;
 }
@@ -31,8 +31,20 @@
 span.MuiButton-startIcon {
   margin-right: 0;
 }
+div.MuiBackdrop-root {
+  background-color: unset;
+  backdrop-filter: blur(1px);
+}
+h2.MuiTypography-h6 {
+  display: flex;
+  justify-content: space-between;
+}
+div.rdw-editor-toolbar {
+  direction: ltr;
+}
 .buttons {
   display: flex;
+  align-items: center;
 }
 button.add {
   background-color: #4caf50;
@@ -41,6 +53,21 @@ button.add {
   font-weight: bold;
   margin-left: 16px;
 }
+button.add:hover {
+  background-color: #26c32b;
+}
 .add-product {
   direction: ltr;
+}
+.image-upload {
+  display: flex;
+  justify-content: space-between;
+}
+.img-upload-description {
+  align-self: center;
+}
+.select-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

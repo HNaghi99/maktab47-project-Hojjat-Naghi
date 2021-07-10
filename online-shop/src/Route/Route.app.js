@@ -17,6 +17,7 @@ import {
   Wares,
   Stock,
 } from "../pages/Index";
+import { LoginPage } from "../pages/Login/Login";
 class Router extends Component {
   render() {
     return (
@@ -54,7 +55,7 @@ class Router extends Component {
           />
           <PublicRoute
             restricted={true}
-            component={Login}
+            component={LoginPage}
             path="/login"
             exact
           />

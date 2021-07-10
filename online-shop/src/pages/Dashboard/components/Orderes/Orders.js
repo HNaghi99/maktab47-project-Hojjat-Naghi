@@ -15,6 +15,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+import { OrdersModal } from "./components/OrdersModal";
 import { instanceOf, string } from "prop-types";
 const columns = [
   { id: "name", label: "نام کاربر", minWidth: 170 },
@@ -124,14 +125,18 @@ export function Orders() {
                         {order.OrderTime}
                       </TableCell>
                       <TableCell align="center" className="cell">
-                        <Button
+                        <OrdersModal
                           variant="contained"
+                          class={classes.button}
+                          color={color}
+                          id={order.id}
+                          orderData={order}
                           // color="green"
-                          className={(classes.button, color)}
-                          startIcon={<AssignmentTurnedInIcon />}
+                          // className={(classes.button, color)}
+                          // startIcon={<AssignmentTurnedInIcon />}
                         >
                           بررسی سفارش
-                        </Button>
+                        </OrdersModal>
                       </TableCell>
                     </TableRow>
                   );
