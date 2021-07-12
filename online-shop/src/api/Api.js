@@ -37,6 +37,18 @@ function postProduct(data) {
     .then((response) => response.data)
     .catch((error) => error);
 }
+function getProductsofGroup(group) {
+  return http
+    .get(`/products?group=${group}`)
+    .then((response) => response.data)
+    .catch((error) => error);
+}
+function getProductWithId(id) {
+  return http
+    .get(`/products/${id}`)
+    .then((response) => response.data)
+    .catch((error) => error);
+}
 export {
   getProducts,
   getOrders,
@@ -44,4 +56,6 @@ export {
   deleteProduct,
   patchProduct,
   postProduct,
+  getProductsofGroup,
+  getProductWithId,
 };

@@ -1,0 +1,54 @@
+.groups-list {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+.groups-list > h3 {
+  margin: 0;
+  text-align: right;
+}
+.groups-list > ul {
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  font-weight: bold;
+}
+.groups-list li {
+  margin: 3px 0;
+}
+aside {
+  background-color: rgb(210 249 210);
+  color: #435688;
+  height: 100%;
+}
+.group-link {
+  text-decoration: none;
+  color: rgb(60, 95, 168);
+}
+.group-link:hover {
+  color: rgb(17, 39, 87);
+}
+.selected {
+  color: rgb(233, 16, 179);
+}
+.card {
+  display: flex;
+  background-color: #71f1b1;
+  border-radius: 10px;
+  justify-content: space-around;
+  padding: 5px;
+  margin: 3px;
+  height: 125px;
+}
+.card img {
+  width: 100px;
+}
+.price-and-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.card-container {
+  text-decoration: none;
+  color: rebeccapurple;
+}

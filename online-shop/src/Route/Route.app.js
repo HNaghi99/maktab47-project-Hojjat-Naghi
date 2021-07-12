@@ -24,11 +24,15 @@ class Router extends Component {
       <BrowserRouter>
         <Switch>
           <PublicRoute restricted={false} component={Home} path="/" exact />
-          <PublicRoute restricted={false} component={List} path="/list" exact />
+          <PublicRoute
+            restricted={false}
+            component={List}
+            path="/groups/:groupName"
+          />
           <PublicRoute
             restricted={false}
             component={ProductDetail}
-            path="/product-detail"
+            path="/product-details/:productId"
             exact
           />
           <PublicRoute restricted={false} component={Cart} path="/cart" exact />
