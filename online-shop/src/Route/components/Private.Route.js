@@ -1,18 +1,15 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useContext } from "react";
-import { IsLogin } from "../../utils/IsLogin";
+import { useSelector } from "react-redux";
 import { Main } from "../../layout/Main";
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const isLogin = useContext(IsLogin).value;
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   return (
-    // Show the component only when the user is logged in
-    // Otherwise, redirect the user to /signin page
     <Route
       {...rest}
       render={(props) =>
-        isLogin ? (
-          <Main isPublic={false}>{/* <Component {...props} /> */}</Main> //TODO:handle state passing by redux
+        isAuthenticated ? (
+          <Main isPublic={false}></Main>
         ) : (
           <Redirect to="/login" />
         )

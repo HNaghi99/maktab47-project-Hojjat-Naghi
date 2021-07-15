@@ -9,8 +9,6 @@ import PropTypes from "prop-types";
 import { Orders } from "../../../pages/Index";
 import { Stock } from "../../../pages/Index";
 import { Wares } from "../../../pages/Index";
-import { IsLogin } from "../../../utils/IsLogin";
-import { useContext } from "react";
 import Grid from "@material-ui/core/Grid";
 import "./style.css";
 function TabPanel(props) {
@@ -47,8 +45,6 @@ function a11yProps(index) {
 }
 export default function PrivateHeader() {
   const [value, setValue] = React.useState(0);
-  const isLogin = useContext(IsLogin).value;
-  const loginHandler = useContext(IsLogin).handler;
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -112,7 +108,6 @@ export default function PrivateHeader() {
                   fontWeight="fontWeightBold"
                   style={{ textDecoration: "none" }}
                   mx={"15px"}
-                  onClick={() => loginHandler(isLogin)}
                 >
                   بازگشت به سایت
                 </Box>

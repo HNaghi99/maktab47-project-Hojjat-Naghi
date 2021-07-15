@@ -1,0 +1,34 @@
+.cart-title {
+  padding-right: 8px;
+}
+.cart-message {
+  text-align: center;
+}
+.price-and-buy {
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  margin-top: 10px;
+}
+div.cart-finalize {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cart-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+a.cart-finalize-link {
+  text-decoration: none;
+  color: white;
+  background-color: green;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 7px;
+}
+a.cart-finalize-link:hover {
+  background-color: rgb(89, 255, 47);
+}

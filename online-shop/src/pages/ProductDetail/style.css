@@ -24,6 +24,9 @@ button.add-to-cart-btn {
   color: white;
   font-weight: bold;
 }
+button.add-to-cart-btn:hover {
+  background-color: rgb(89, 255, 47);
+}
 .product-information {
   display: flex;
   flex-direction: column;

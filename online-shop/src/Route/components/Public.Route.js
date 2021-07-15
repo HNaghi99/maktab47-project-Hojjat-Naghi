@@ -1,20 +1,17 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useContext } from "react";
-import { IsLogin } from "../../utils/IsLogin";
+import { useSelector } from "react-redux";
 import { Main } from "../../layout/Main";
 const PublicRoute = ({ component: Component, restricted, ...rest }) => {
-  const isLogin = useContext(IsLogin).value;
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   return (
-    // restricted = false meaning public route
-    // restricted = true meaning restricted route
     <Route
       {...rest}
       render={(props) => {
-        if (isLogin === false && restricted === true)
+        if (isAuthenticated === false && restricted === true)
           return <Component {...props} />;
         else {
-          return isLogin && restricted ? (
+          return isAuthenticated && restricted ? (
             <Redirect to="/dashboard" />
           ) : (
             <Main isPublic={true}>

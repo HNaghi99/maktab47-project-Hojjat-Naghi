@@ -3,7 +3,6 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { getProductWithId } from "../../api/Api";
 import { Grid } from "@material-ui/core";
-import { Box } from "@material-ui/core";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Typography from "@material-ui/core/Typography";
 import "./style.css";
@@ -11,10 +10,13 @@ import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import { Button } from "@material-ui/core";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import ReactImageZoom from "react-image-zoom";
-
+import { cartAction } from "../../redux/reducer/cartReducer";
+import { useDispatch } from "react-redux";
 function ProductDetail() {
   const { productId } = useParams();
+  const dispatch = useDispatch();
   const [productDetail, setProductDetail] = React.useState({});
+  const [stock, setStock] = React.useState(1);
   const zoomProps = {
     width: 250,
     height: 250,
@@ -30,6 +32,18 @@ function ProductDetail() {
       setProductDetail(product);
     });
   }, [productId]);
+  const addToCartHandler = () => {
+    const productData = {
+      name: productDetail.name,
+      price: productDetail.price,
+      id: productDetail.id,
+      stock: stock,
+    };
+    dispatch(cartAction.addToCart(productData));
+  };
+  const stockChangeHandler = (e) => {
+    setStock(e.target.value);
+  };
   console.log("id of page is ", productId);
   return (
     <main className="product-details-page">
@@ -65,12 +79,18 @@ function ProductDetail() {
             </div>
             <h3 dir="rtl">{productDetail.price}تومان</h3>
             <div className="add-to-cart">
-              <input type="number" min={1} className="input-number" />
+              <input
+                type="number"
+                min={1}
+                value={stock}
+                onChange={stockChangeHandler}
+                className="input-number"
+              />
               <Button
                 variant="contained"
                 className="add-to-cart-btn"
                 startIcon={<AddCircleIcon />}
-                //   onClick={handleOpenDeleteDialog}
+                onClick={addToCartHandler}
               >
                 افزودن به سبد خرید
               </Button>
