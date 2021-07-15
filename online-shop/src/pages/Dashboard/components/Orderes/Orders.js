@@ -54,6 +54,18 @@ export function Orders() {
     setCheck(value);
     setColor(color);
   };
+  function insertrialcamma(n) {
+    var m = "";
+    for (var i = 0; i < n.length; i++) {
+      var c = n.substr(n.length - i - 1, 1);
+      if ((i % 3 == 0) & (i > 0)) {
+        m = c + "," + m;
+      } else {
+        m = c + m;
+      }
+    }
+    return m;
+  }
   React.useEffect(() => {
     async function dataProvider() {
       return getOrders();
@@ -77,6 +89,7 @@ export function Orders() {
     });
     console.log("checkState is :", checkState);
   }, [checkState]);
+  const e2p = (s) => s.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -119,10 +132,10 @@ export function Orders() {
                     <TableRow key={order.id}>
                       <TableCell align="center">{order.name}</TableCell>
                       <TableCell align="center" className="cell">
-                        {order.amount}
+                        {insertrialcamma(e2p(order.amount))}
                       </TableCell>
                       <TableCell align="center" className="cell">
-                        {order.OrderTime}
+                        {e2p(order.OrderTime)}
                       </TableCell>
                       <TableCell align="center" className="cell">
                         <OrdersModal

@@ -32,6 +32,11 @@ server.get("/files/:file_id", (req, res, next) => {
   res.sendFile(path.join(__dirname, "uploads/" + file_id));
 });
 
+//add payment page to route of backend
+// server.get("/payment", (req, res) => {
+//   res.sendFile("index.html");
+// });
+
 // To handle POST, PUT and PATCH you need to use a body-parser
 // You can use the one used by JSON Server
 server.use(jsonServer.bodyParser);

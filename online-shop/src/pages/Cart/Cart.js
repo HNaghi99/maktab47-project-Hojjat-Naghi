@@ -67,6 +67,19 @@ function Cart(props) {
   const deleteProductHandler = (productData) => {
     dispatch(cartAction.deleteFromCart(productData));
   };
+  const e2p = (s) => s.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  function insertrialcamma(n) {
+    var m = "";
+    for (var i = 0; i < n.length; i++) {
+      var c = n.substr(n.length - i - 1, 1);
+      if ((i % 3 == 0) & (i > 0)) {
+        m = c + "," + m;
+      } else {
+        m = c + m;
+      }
+    }
+    return m;
+  }
   return (
     <main>
       <h2 className="cart-title">سبد خرید</h2>
@@ -100,10 +113,10 @@ function Cart(props) {
                       <TableRow key={index}>
                         <TableCell align="center">{product.name}</TableCell>
                         <TableCell align="center" className="cell">
-                          {product.price}
+                          {insertrialcamma(e2p(JSON.stringify(product.price)))}
                         </TableCell>
                         <TableCell align="center" className="cell">
-                          {product.stock}
+                          {e2p(JSON.stringify(product.stock))}
                         </TableCell>
                         <TableCell align="center" className="cell">
                           <Button
@@ -130,7 +143,7 @@ function Cart(props) {
             </TableContainer>
           </Paper>
           <div className="price-and-buy">
-            <h3>جمع:{total} تومان</h3>
+            <h3>جمع:{insertrialcamma(e2p(JSON.stringify(total)))} تومان</h3>
             <Box component="div" className="cart-finalize">
               <Box
                 component={Link}

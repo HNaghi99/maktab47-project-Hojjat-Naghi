@@ -81,6 +81,19 @@ function Home(props) {
       setGroups(globalArray);
     });
   }, []);
+  const e2p = (s) => s.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  function insertrialcamma(n) {
+    var m = "";
+    for (var i = 0; i < n.length; i++) {
+      var c = n.substr(n.length - i - 1, 1);
+      if ((i % 3 == 0) & (i > 0)) {
+        m = c + "," + m;
+      } else {
+        m = c + m;
+      }
+    }
+    return m;
+  }
   return (
     <div className="slides-container">
       {groups.map((group) => {
@@ -101,7 +114,9 @@ function Home(props) {
                       <div className="slider-item">
                         <div className="product-data">
                           <h3>{product.name}</h3>
-                          <h3 dir="rtl">{product.price} تومان</h3>
+                          <h3 dir="rtl">
+                            {insertrialcamma(e2p(product.price))} تومان
+                          </h3>
                         </div>
                         <img
                           src={"http://localhost:3004".concat(

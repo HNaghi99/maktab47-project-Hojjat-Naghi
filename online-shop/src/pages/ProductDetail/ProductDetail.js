@@ -12,10 +12,16 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import ReactImageZoom from "react-image-zoom";
 import { cartAction } from "../../redux/reducer/cartReducer";
 import { useDispatch } from "react-redux";
+import draftToHtml from "draftjs-to-html";
+import { convertToRaw } from "draft-js";
+import ReactHtmlParser from "react-html-parser";
 function ProductDetail() {
   const { productId } = useParams();
   const dispatch = useDispatch();
-  const [productDetail, setProductDetail] = React.useState({});
+  const [productDetail, setProductDetail] = React.useState({
+    price: "10000",
+    description: "[]",
+  });
   const [stock, setStock] = React.useState(1);
   const zoomProps = {
     width: 250,
@@ -30,8 +36,22 @@ function ProductDetail() {
     const product = productData();
     product.then((product) => {
       setProductDetail(product);
+      console.log("babamo daravordi", JSON.parse(product.description));
     });
   }, [productId]);
+  const e2p = (s) => s.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  function insertrialcamma(n) {
+    var m = "";
+    for (var i = 0; i < n.length; i++) {
+      var c = n.substr(n.length - i - 1, 1);
+      if ((i % 3 == 0) & (i > 0)) {
+        m = c + "," + m;
+      } else {
+        m = c + m;
+      }
+    }
+    return m;
+  }
   const addToCartHandler = () => {
     const productData = {
       name: productDetail.name,
@@ -77,7 +97,7 @@ function ProductDetail() {
                 </Typography>
               </Breadcrumbs>
             </div>
-            <h3 dir="rtl">{productDetail.price}تومان</h3>
+            <h3 dir="rtl">{insertrialcamma(e2p(productDetail.price))}تومان</h3>
             <div className="add-to-cart">
               <input
                 type="number"
@@ -98,7 +118,7 @@ function ProductDetail() {
           </div>
         </Grid>
         <Grid item sm={12}>
-          {productDetail.description}
+          {[ReactHtmlParser(JSON.parse(productDetail.description))]}
         </Grid>
       </Grid>
     </main>

@@ -52,3 +52,39 @@ aside {
   text-decoration: none;
   color: rebeccapurple;
 }
+.accordion-summary {
+  padding: 0 !important;
+  width: 100% !important;
+  justify-content: center !important;
+}
+.MuiAccordionSummary-content {
+  flex-grow: 0 !important;
+  margin: 0 !important;
+}
+.MuiAccordionSummary-expandIcon {
+  display: none !important;
+}
+.content {
+  padding: 10px;
+}
+.list-of-group {
+  list-style: none;
+}
+.side-bar,
+.main-wrapper {
+  display: flex !important;
+  flex-direction: column;
+  height: calc(100vh - 78.875px) !important;
+}
+.side-bar > aside,
+.main-section {
+  flex: 1 !important;
+  overflow: auto !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .side-bar,
+  .main-wrapper {
+    height: calc(100vh - 126.875px) !important;
+  }
+}

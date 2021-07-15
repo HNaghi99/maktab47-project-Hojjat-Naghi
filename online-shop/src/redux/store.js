@@ -5,9 +5,11 @@ import { createStore } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 import { AuthReducer } from "./reducer/authReducer";
 import { CartReducer } from "./reducer/cartReducer";
+import { CustomerReducer } from "./reducer/customReducer";
 const rootReducer = combineReducers({
   auth: AuthReducer.reducer,
   cart: CartReducer.reducer,
+  customer: CustomerReducer.reducer,
 });
 const persistConfig = {
   key: "root",

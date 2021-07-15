@@ -40,7 +40,19 @@ const useStyles = makeStyles((theme) => ({
 export function OrdersModal(props) {
   const classes = useStyles();
   const [openDeleteDialog, setOpenDelete] = React.useState(false);
-
+  const e2p = (s) => s.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  function insertrialcamma(n) {
+    var m = "";
+    for (var i = 0; i < n.length; i++) {
+      var c = n.substr(n.length - i - 1, 1);
+      if ((i % 3 == 0) & (i > 0)) {
+        m = c + "," + m;
+      } else {
+        m = c + m;
+      }
+    }
+    return m;
+  }
   const handleOpenDeleteDialog = () => {
     setOpenDelete(true);
   };
@@ -74,10 +86,10 @@ export function OrdersModal(props) {
             <div className="customer-field">آدرس:{props.orderData.address}</div>
             <div className="customer-field">تلفن:{props.orderData.tel}</div>
             <div className="customer-field">
-              زمان تحویل:{props.orderData.deliveryTime}
+              زمان تحویل:{e2p(props.orderData.deliveryTime)}
             </div>
             <div className="customer-field">
-              زمان سفارش:{props.orderData.OrderTime}
+              زمان سفارش:{e2p(props.orderData.OrderTime)}
             </div>
           </div>
           <Paper className={classes.root}>
@@ -106,10 +118,10 @@ export function OrdersModal(props) {
                       <TableRow>
                         <TableCell align="center">{product.product}</TableCell>
                         <TableCell align="center" className="cell">
-                          {product.price}
+                          {insertrialcamma(e2p(JSON.stringify(product.price)))}
                         </TableCell>
                         <TableCell align="center" className="cell">
-                          {product.number}
+                          {e2p(JSON.stringify(product.number))}
                         </TableCell>
                       </TableRow>
                     );
@@ -124,7 +136,7 @@ export function OrdersModal(props) {
             <div className="delivered-alert">تحویل شد</div>
           ) : (
             <div className="delivery-time">
-              زمان تحویل:{props.orderData.deliveryTime}
+              زمان تحویل:{e2p(props.orderData.deliveryTime)}
             </div>
           )}
         </DialogActions>

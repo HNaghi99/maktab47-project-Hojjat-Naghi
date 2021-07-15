@@ -94,6 +94,8 @@ export function StockComponent() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  //convert English number to persian
+  const e2p = (s) => s.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
   const saveHandler = () => {
     let changedProductsId = modified;
     //filter same id
@@ -178,14 +180,16 @@ export function StockComponent() {
                       </TableCell>
                       <TableCell align="center" className="cell">
                         <Text
-                          value={product.price}
+                          type="price"
+                          value={e2p(product.price)}
                           id={product.id}
                           onChange={passPrice}
                         />
                       </TableCell>
                       <TableCell align="center" className="cell">
                         <Text
-                          value={product.stock}
+                          type="stock"
+                          value={e2p(product.stock)}
                           id={product.id}
                           onChange={passStock}
                         />

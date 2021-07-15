@@ -2,13 +2,23 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Main } from "../../layout/Main";
+import { useParams } from "react-router";
 const PublicRoute = ({ component: Component, restricted, ...rest }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const href = window.location.href;
   return (
     <Route
       {...rest}
       render={(props) => {
-        if (isAuthenticated === false && restricted === true)
+        if (href.includes("groups"))
+          return (
+            <div style={{ overflow: "hidden" }}>
+              <Main isPublic={true}>
+                <Component {...props} />
+              </Main>
+            </div>
+          );
+        else if (isAuthenticated === false && restricted === true)
           return <Component {...props} />;
         else {
           return isAuthenticated && restricted ? (

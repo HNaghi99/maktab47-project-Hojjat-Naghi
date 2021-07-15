@@ -13,9 +13,11 @@ const useStyles = makeStyles((theme) => ({
 export function InputField(props) {
   const classes = useStyles();
   const [value, setValue] = useState("");
-  const changeHandler = ({ target }) => {
-    setValue(target.value);
-    props.onChangeInput(target.value);
+  const changeHandler = (e) => {
+    if (e.target.validity.valid) {
+      setValue(e.target.value);
+      props.onChangeInput(e.target.value);
+    }
   };
   return (
     <>
@@ -30,9 +32,11 @@ export function InputField(props) {
         <TextField
           value={value}
           onChange={changeHandler}
+          onKeyPress={props.onKeyPress}
           style={{ direction: "rtl" }}
           label={props.label}
           type={props.type}
+          pattern={props.pattern}
           InputLabelProps={{
             classes: { root: classes.labelRoot, shrink: classes.shrink },
           }}

@@ -13,12 +13,14 @@ import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import { InputField } from "../../../../Login/components/InputField";
 import { SelectItem } from "../../../../../components/Select";
-import { EditorState } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
+import { convertToRaw, EditorState, Editor } from "draft-js";
+// import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import joi from "joi";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
+import draftToHtml from "draftjs-to-html";
+import { stateToHTML } from "draft-js-export-html";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -61,9 +63,10 @@ export function Add(props) {
       .required()
       .error(new Error("وارد کردن زیر گروه محصول الزامی است")),
     description: joi
-      .string()
-      .min(2)
-      .required()
+      .optional()
+      // .string()
+      // .min(2)
+      // .required()
       .error(new Error("وارد کردن جزئیات محصول الزامی است")),
     image: joi
       .object({})
@@ -79,6 +82,11 @@ export function Add(props) {
   const [openDeleteDialog, setOpenDelete] = React.useState(false);
   const [image, setImage] = React.useState(null);
   const [flag, setFlag] = React.useState(5);
+  const styleMap = {
+    STRIKETHROUGH: {
+      textDecoration: "line-through",
+    },
+  };
   const handleOpenDeleteDialog = () => {
     setOpenDelete(true);
   };
@@ -94,11 +102,16 @@ export function Add(props) {
   const inputHandler = (value) => {
     setName(value);
   };
-  const editorHandler = async (value) => {
-    await setEditor(value);
+  const editorHandler = (value) => {
+    setEditor(value);
+    console.log(
+      "salam be jam",
+      JSON.stringify(stateToHTML(editorState.getCurrentContent()))
+    );
+    setDes(JSON.stringify(stateToHTML(editorState.getCurrentContent())));
     // setDes()
     // const desc = await editorState.getCurrentContent().getPlainText();
-    await setDes(value.getCurrentContent().getPlainText());
+    // await setDes(value);
     // console.log("description:", value.getCurrentContent().getPlainText());
   };
   const imageHandler = (e) => {
@@ -138,28 +151,6 @@ export function Add(props) {
     } catch (error) {
       handleClickVariant(error.message, "error");
     }
-    // if (name) {
-    //   formData.append("name", name);
-    // }
-    // if (head) {
-    //   formData.append("header", head);
-    // }
-    // if (group) {
-    //   formData.append("group", group);
-    // }
-    // if (description) {
-    //   formData.append("description", description);
-    // }
-    // if (image) {
-    //   formData.append("image", image);
-    // }
-    // console.log("form submitted successfully", formData);
-    // postProduct(formData).then(() => {
-    //   // debugger;
-    //   handleCloseDeleteDialog();
-    //   setFlag(flag + 1);
-    //   props.onSelect(flag + 1);
-    // });
   };
   return (
     <>
@@ -212,8 +203,9 @@ export function Add(props) {
             />
             <SelectItem head={headHandler} group={groupHandler} />
             <Editor
+              customStyleMap={styleMap}
               editorState={editorState}
-              onEditorStateChange={editorHandler}
+              onChange={editorHandler}
               placeholder="توضیحات..."
               textAlignment="right"
               toolbar={{

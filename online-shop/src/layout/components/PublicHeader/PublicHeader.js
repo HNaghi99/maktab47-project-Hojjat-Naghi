@@ -18,6 +18,7 @@ const StyledBadge = withStyles((theme) => ({
 }))(Badge);
 export default function PublicHeader(props) {
   const stock = useSelector((state) => state.cart.cartProductsArray.length);
+  const e2p = (s) => s.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
   return (
     <header>
       <Box
@@ -69,7 +70,10 @@ export default function PublicHeader(props) {
                 mx={"15px"}
               >
                 <IconButton aria-label="cart">
-                  <StyledBadge badgeContent={stock} color="secondary">
+                  <StyledBadge
+                    badgeContent={e2p(JSON.stringify(stock))}
+                    color="secondary"
+                  >
                     <ShoppingCartIcon />
                   </StyledBadge>
                 </IconButton>

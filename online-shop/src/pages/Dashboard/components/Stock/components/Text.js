@@ -2,23 +2,22 @@ import * as React from "react";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
-
-const useStyles = makeStyles(
-  createStyles({
-    // name: { "font-size": "50px" },
-  })
-);
-
+import { getProductWithId } from "../../../../../api/Api";
 function Text(props) {
-  //   const classes = useStyles(props);
   const value = props.value;
+  const [previousValue, setPrevious] = React.useState(0);
   const [name, setName] = React.useState(value);
   const [isNameFocused, setIsNamedFocused] = React.useState(false);
-  const keyDownHandler = (e) => {
+  const e2p = (s) => s.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  const keyDownHandler = async (e) => {
     var key = e.keyCode ? e.keyCode : e.which;
+    if (e.key === "Escape") {
+      setIsNamedFocused(false);
+      setName(e2p(previousValue));
+    }
     if (
       !(
-        [8, 9, 13, 27, 46, 110, 190].indexOf(key) !== -1 ||
+        [8, 9, 13, 46, 110, 190].indexOf(key) !== -1 ||
         (key == 65 && (e.ctrlKey || e.metaKey)) ||
         (key >= 35 && key <= 40) ||
         (key >= 48 && key <= 57 && !(e.shiftKey || e.altKey)) ||
@@ -27,25 +26,33 @@ function Text(props) {
     )
       e.preventDefault();
   };
+  const p2e = (s) => s.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
   const changeHandler = (e) => {
     if (e.target.value === "") {
-      setName(0);
+      setName("۰");
       props.onChange("0", props.id);
     } else {
-      setName(e.target.value);
-      props.onChange(e.target.value, props.id);
+      const pattern = /^[\u0600-\u06FF\s]+$/;
+      const result = pattern.test(e.target.value);
+      if (result) {
+        setName(e.target.value);
+        props.onChange(p2e(e.target.value), props.id);
+      }
     }
   };
-  // ((note)) ref doesn't work as TextField doesn't exist when running Typography's onClick
-  // console.log({ isNameFocused });
-
-  // ((todo)) create EditableField component
-  // ((todo)) put cursor where user clicks rather than at the end
+  React.useEffect(() => {
+    const productData = async () => {
+      return getProductWithId(props.id);
+    };
+    const product = productData();
+    product.then((product) => {
+      setPrevious(product[`${props.type}`]);
+    });
+  }, []);
   return (
     <div className="App" onKeyDown={keyDownHandler}>
       {!isNameFocused ? (
         <Typography
-          //   className={classes.name}
           onClick={() => {
             setIsNamedFocused(true);
           }}
@@ -55,7 +62,6 @@ function Text(props) {
       ) : (
         <TextField
           autoFocus
-          //   inputProps={{ className: classes.name }}
           value={name}
           onChange={changeHandler}
           onBlur={(event) => setIsNamedFocused(false)}
