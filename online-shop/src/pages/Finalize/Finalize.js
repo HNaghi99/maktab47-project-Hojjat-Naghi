@@ -80,6 +80,7 @@ function FinalizeElements(props) {
   };
   const customerDataHandler = (e) => {
     e.preventDefault();
+    const nowDate = new Date().toLocaleDateString("fa-IR");
     let customerData = schema.validate({
       name: name,
       family: family,
@@ -96,9 +97,10 @@ function FinalizeElements(props) {
           address: address,
           tel: tel,
           date: date,
+          orderTime: nowDate,
         };
         dispatch(customerAction.saveCustomerData(customerData));
-        window.location.href = "http://localhost:3004/payment";
+        window.location.href = "http://127.0.0.1:5500/payment-page/index.html";
       }
     } catch (error) {
       handleClickVariant(error.message, "error");
@@ -141,7 +143,8 @@ function FinalizeElements(props) {
               isGregorian={false}
               onChange={async (value) => {
                 handleDateChange(value);
-                setDate(await JSON.stringify(value._d));
+                console.log("salam date:", value.format("jYYYY/jM/jD"));
+                setDate(await value.format("jYYYY/jM/jD"));
               }}
             />
           </Grid>

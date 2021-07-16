@@ -9,37 +9,41 @@ export const CartReducer = createSlice({
   reducers: {
     addToCart(state, action) {
       const productData = action.payload;
-      const name = productData.name;
+      const product = productData.name;
       const price = +productData.price;
-      const stock = +productData.stock;
+      const number = +productData.number;
       const id = productData.id;
       if (state.cartProductsArray.find((product) => product.id === id)) {
         const indexOfProduct = state.cartProductsArray.findIndex(
           (product) => product.id === id
         );
-        state.cartProductsArray[indexOfProduct].stock += stock;
+        state.cartProductsArray[indexOfProduct].number += number;
       } else {
         state.cartProductsArray = [
           ...state.cartProductsArray,
           {
-            name: name,
+            product: product,
             price: price,
-            stock: stock,
+            number: number,
             id: id,
           },
         ];
       }
 
-      state.total += stock * price;
+      state.total += number * price;
     },
     deleteFromCart(state, action) {
       const idOfProduct = action.payload.id;
-      const stock = +action.payload.stock;
+      const number = +action.payload.number;
       const price = +action.payload.price;
       state.cartProductsArray = state.cartProductsArray.filter(
         (product) => product.id !== idOfProduct
       );
-      state.total -= stock * price;
+      state.total -= number * price;
+    },
+    clearCart(state) {
+      state.total = 0;
+      state.cartProductsArray = [];
     },
   },
 });

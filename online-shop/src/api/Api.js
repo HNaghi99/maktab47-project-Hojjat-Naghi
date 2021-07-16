@@ -30,6 +30,13 @@ function patchProduct(data, id) {
     .then((response) => response.data)
     .catch((error) => error);
 }
+function patchOrder(data, id) {
+  // const headers = data.getHeaders();
+  return http
+    .patch(`/orders/${id}`, data)
+    .then((response) => response.data)
+    .catch((error) => error);
+}
 function postProduct(data) {
   // const headers = data.getHeaders();
   return http
@@ -49,6 +56,13 @@ function getProductWithId(id) {
     .then((response) => response.data)
     .catch((error) => error);
 }
+function postOrder(data) {
+  // const headers = data.getHeaders();
+  return http
+    .post(`/orders`, data)
+    .then((response) => response.data)
+    .catch((error) => error);
+}
 export {
   getProducts,
   getOrders,
@@ -58,4 +72,6 @@ export {
   postProduct,
   getProductsofGroup,
   getProductWithId,
+  postOrder,
+  patchOrder,
 };

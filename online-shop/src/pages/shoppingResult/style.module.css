@@ -1,0 +1,20 @@
+.shoppingStatus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon {
+  font-size: 100px !important;
+}
+.success {
+  color: #42ba96;
+}
+.unsuccess {
+  color: #df4759;
+}
+.statusText {
+  font-weight: bold;
+}
+.header {
+  margin-right: 10px;
+}

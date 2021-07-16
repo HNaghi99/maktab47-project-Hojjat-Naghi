@@ -71,7 +71,7 @@ export default function PublicHeader(props) {
               >
                 <IconButton aria-label="cart">
                   <StyledBadge
-                    badgeContent={e2p(JSON.stringify(stock))}
+                    badgeContent={stock !== 0 ? e2p(JSON.stringify(stock)) : 0}
                     color="secondary"
                   >
                     <ShoppingCartIcon />

@@ -1,5 +1,7 @@
 import React from "react";
 import { Button } from "@material-ui/core";
+import Tooltip from "@material-ui/core/Tooltip";
+import Fade from "@material-ui/core/Fade";
 import AddIcon from "@material-ui/icons/Add";
 import { makeStyles } from "@material-ui/core/styles";
 import { postProduct } from "../../../../../api/Api";
@@ -109,10 +111,6 @@ export function Add(props) {
       JSON.stringify(stateToHTML(editorState.getCurrentContent()))
     );
     setDes(JSON.stringify(stateToHTML(editorState.getCurrentContent())));
-    // setDes()
-    // const desc = await editorState.getCurrentContent().getPlainText();
-    // await setDes(value);
-    // console.log("description:", value.getCurrentContent().getPlainText());
   };
   const imageHandler = (e) => {
     const file = e.target.files[0];
@@ -172,7 +170,16 @@ export function Add(props) {
         <form onSubmit={submitHandler}>
           <DialogTitle id="edit-apartment">
             <span>افزودن کالا</span>
-            <CancelIcon onClick={handleCloseDeleteDialog} />
+            {/* <Tooltip
+              TransitionComponent={Fade}
+              TransitionProps={{ timeout: 600 }}
+              title="یستن"
+              placement="left"
+            > */}
+            <IconButton className="cancel-icon">
+              <CancelIcon onClick={handleCloseDeleteDialog} />
+            </IconButton>
+            {/* </Tooltip> */}
           </DialogTitle>
           <DialogContent>
             <div className="image-upload">
@@ -208,34 +215,31 @@ export function Add(props) {
               onChange={editorHandler}
               placeholder="توضیحات..."
               textAlignment="right"
-              toolbar={{
-                options: ["inline", "list", "history", "image", "emoji"],
-                inline: {
-                  options: ["bold", "italic", "underline", "strikethrough"],
-                  bold: { className: "bordered-option-classname" },
-                  italic: { className: "bordered-option-classname" },
-                  underline: { className: "bordered-option-classname" },
-                  strikethrough: { className: "bordered-option-classname" },
-                  code: { className: "bordered-option-classname" },
-                },
-                list: {
-                  options: ["unordered", "ordered"],
-                  unordered: { className: "bordered-option-classname" },
-                  ordered: { className: "bordered-option-classname" },
-                },
-                image: {
-                  urlEnabled: true,
-                  uploadEnabled: true,
-                },
-              }}
+              textDirectionality="RTL"
+              // toolbar={{
+              //   options: ["inline", "list", "history", "image", "emoji"],
+              //   inline: {
+              //     options: ["bold", "italic", "underline", "strikethrough"],
+              //     bold: { className: "bordered-option-classname" },
+              //     italic: { className: "bordered-option-classname" },
+              //     underline: { className: "bordered-option-classname" },
+              //     strikethrough: { className: "bordered-option-classname" },
+              //     code: { className: "bordered-option-classname" },
+              //   },
+              //   list: {
+              //     options: ["unordered", "ordered"],
+              //     unordered: { className: "bordered-option-classname" },
+              //     ordered: { className: "bordered-option-classname" },
+              //   },
+              //   image: {
+              //     urlEnabled: true,
+              //     uploadEnabled: true,
+              //   },
+              // }}
             />
           </DialogContent>
           <DialogActions className="MuiGrid-justify-xs-center">
-            <Button
-              // onClick={handleCloseDeleteDialog}
-              className="add"
-              type="submit"
-            >
+            <Button className="add" type="submit">
               ذخیره
             </Button>
           </DialogActions>

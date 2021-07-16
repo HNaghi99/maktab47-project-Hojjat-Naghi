@@ -1,0 +1,26 @@
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 40px;
+}
+button {
+  color: white;
+  font-weight: bold;
+  font-size: medium;
+  width: 80px;
+  border-radius: 20px;
+  padding: 5px;
+  border: none;
+}
+.pay {
+  background-color: green;
+}
+.cancel {
+  background-color: red;
+}
+img {
+  width: 90%;
+  display: block;
+  margin: auto;
+  height: 70vh;
+}

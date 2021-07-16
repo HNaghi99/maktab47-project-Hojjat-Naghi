@@ -108,7 +108,7 @@ export function Edit(props) {
       name: name,
       header: head,
       group: group,
-      description: description,
+      description: editorState,
     });
     try {
       if (editedData.error) throw new Error(editedData.error.message);

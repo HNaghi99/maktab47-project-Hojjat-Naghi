@@ -38,13 +38,6 @@ const columns = [
     // minWidth: 170,
   },
 ];
-const priceHandler = (cart) => {
-  let total = 0;
-  cart.forEach((product) => {
-    total += product.price * product.stock;
-  });
-  return total;
-};
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "70%",
@@ -60,7 +53,7 @@ function Cart(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const cartProducts = useSelector((state) => state.cart.cartProductsArray);
-  console.log("CART IS:", cartProducts);
+  console.log("CART IS:", cartProducts, JSON.stringify(cartProducts));
   const total = useSelector((state) => state.cart.total);
   //   const [cartProducts, setCartProducts] = React.useState(fakeCart);
   //   const [total, setTotal] = React.useState(0);
@@ -116,7 +109,7 @@ function Cart(props) {
                           {insertrialcamma(e2p(JSON.stringify(product.price)))}
                         </TableCell>
                         <TableCell align="center" className="cell">
-                          {e2p(JSON.stringify(product.stock))}
+                          {e2p(JSON.stringify(product.number))}
                         </TableCell>
                         <TableCell align="center" className="cell">
                           <Button
@@ -127,7 +120,7 @@ function Cart(props) {
                             onClick={() =>
                               deleteProductHandler({
                                 id: product.id,
-                                stock: product.stock,
+                                number: product.number,
                                 price: product.price,
                               })
                             }

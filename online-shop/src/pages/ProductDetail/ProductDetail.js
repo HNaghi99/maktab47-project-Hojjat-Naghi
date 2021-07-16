@@ -57,7 +57,7 @@ function ProductDetail() {
       name: productDetail.name,
       price: productDetail.price,
       id: productDetail.id,
-      stock: stock,
+      number: stock,
     };
     dispatch(cartAction.addToCart(productData));
   };
@@ -65,6 +65,7 @@ function ProductDetail() {
     setStock(e.target.value);
   };
   console.log("id of page is ", productId);
+
   return (
     <main className="product-details-page">
       <Grid container>
@@ -102,6 +103,7 @@ function ProductDetail() {
               <input
                 type="number"
                 min={1}
+                max={productDetail.stock}
                 value={stock}
                 onChange={stockChangeHandler}
                 className="input-number"
@@ -118,7 +120,7 @@ function ProductDetail() {
           </div>
         </Grid>
         <Grid item sm={12}>
-          {[ReactHtmlParser(JSON.parse(productDetail.description))]}
+          {/* {[ReactHtmlParser(JSON.parse(productDetail.description))]} */}
         </Grid>
       </Grid>
     </main>

@@ -16,6 +16,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+import { patchOrder } from "../../../../../api/Api";
 
 const columns = [
   { id: "product", label: "کالا", minWidth: 170 },
@@ -39,6 +40,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 export function OrdersModal(props) {
   const classes = useStyles();
+  const cart = JSON.parse(props.orderData.cart);
+  const [deliveryFlag, setDeliveryFlag] = React.useState(false);
   const [openDeleteDialog, setOpenDelete] = React.useState(false);
   const e2p = (s) => s.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
   function insertrialcamma(n) {
@@ -58,6 +61,18 @@ export function OrdersModal(props) {
   };
   const handleCloseDeleteDialog = () => {
     setOpenDelete(false);
+  };
+  const changeDeliveryStatus = () => {
+    const nowDate = new Date().toLocaleDateString("fa-IR");
+    const formData = new FormData();
+    formData.append("deliveryStatus", "true");
+    formData.append("deliveryTime", nowDate);
+    patchOrder(formData, props.id).then(() => {
+      console.log("all is OK");
+      props.onChange(deliveryFlag);
+      setDeliveryFlag(!deliveryFlag);
+      setOpenDelete(false);
+    });
   };
   return (
     <>
@@ -86,7 +101,7 @@ export function OrdersModal(props) {
             <div className="customer-field">آدرس:{props.orderData.address}</div>
             <div className="customer-field">تلفن:{props.orderData.tel}</div>
             <div className="customer-field">
-              زمان تحویل:{e2p(props.orderData.deliveryTime)}
+              زمان تحویل درخواست شده:{e2p(props.orderData.deliveryRequestTime)}
             </div>
             <div className="customer-field">
               زمان سفارش:{e2p(props.orderData.OrderTime)}
@@ -113,7 +128,7 @@ export function OrdersModal(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {props.orderData.cart.map((product) => {
+                  {cart.map((product) => {
                     return (
                       <TableRow>
                         <TableCell align="center">{product.product}</TableCell>
@@ -132,8 +147,10 @@ export function OrdersModal(props) {
           </Paper>
         </DialogContent>
         <DialogActions className="MuiGrid-justify-xs-center">
-          {props.orderData.deliveryStatus ? (
-            <div className="delivered-alert">تحویل شد</div>
+          {props.orderData.deliveryStatus === "false" ? (
+            <Button className="delivered-alert" onClick={changeDeliveryStatus}>
+              تحویل شد
+            </Button>
           ) : (
             <div className="delivery-time">
               زمان تحویل:{e2p(props.orderData.deliveryTime)}

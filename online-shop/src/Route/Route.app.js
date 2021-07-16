@@ -42,7 +42,7 @@ class Router extends Component {
           <PublicRoute
             restricted={false}
             component={ShoppingResult}
-            path="/shopping-result"
+            path="/shopping-result/:shoppingStatus"
             exact
           />
           <PublicRoute

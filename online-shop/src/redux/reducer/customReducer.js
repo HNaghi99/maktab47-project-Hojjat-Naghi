@@ -5,6 +5,7 @@ const initialState = {
   address: "",
   tel: "",
   date: "",
+  orderTime: "",
 };
 export const CustomerReducer = createSlice({
   name: "customer",
@@ -17,6 +18,7 @@ export const CustomerReducer = createSlice({
       state.address = customerData.address;
       state.tel = customerData.tel;
       state.date = customerData.date;
+      state.orderTime = customerData.orderTime;
     },
   },
 });

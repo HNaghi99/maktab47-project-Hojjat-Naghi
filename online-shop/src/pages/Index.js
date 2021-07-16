@@ -5,7 +5,7 @@ import { Home } from "./Home/Home";
 import { List } from "./List/List";
 import { Login } from "./Login/Login";
 import { Payment } from "./Payment";
-import { ShoppingResult } from "./ShoppingResult";
+import { ShoppingResult } from "./shoppingResult/ShoppingResult";
 import { ProductDetail } from "./ProductDetail/ProductDetail";
 import { Orders } from "./Dashboard/components/Orderes/Orders";
 import { Wares } from "./Dashboard/components/Wares/Wares";

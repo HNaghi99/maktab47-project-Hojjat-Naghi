@@ -76,3 +76,8 @@ button.add:hover {
   right: 5px !important;
   left: unset !important;
 }
+.cancel-icon {
+  padding: 0 !important;
+  justify-content: flex-end !important;
+  width: 14% !important;
+}

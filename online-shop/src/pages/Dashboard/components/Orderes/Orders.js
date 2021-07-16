@@ -50,6 +50,7 @@ export function Orders() {
   const [checkState, setCheck] = React.useState("delivered");
   const [color, setColor] = React.useState("success");
   const [orders, setOrders] = React.useState([]);
+  const [deliveryFlag, setDeliveryFlag] = React.useState(true);
   const radioHandler = (value, color) => {
     setCheck(value);
     setColor(color);
@@ -74,13 +75,13 @@ export function Orders() {
     data.then((orders) => {
       if (checkState === "delivered") {
         const filteredOrders = orders.filter(
-          (order) => order.deliveryStatus === true
+          (order) => order.deliveryStatus === "true"
         );
         setOrders(filteredOrders);
         console.log("orders are:", orders);
       } else {
         const filteredOrders = orders.filter(
-          (order) => order.deliveryStatus === false
+          (order) => order.deliveryStatus === "false"
         );
         setOrders(filteredOrders);
         console.log("orders are:waiting", orders);
@@ -88,7 +89,7 @@ export function Orders() {
       // setOrders(orders)
     });
     console.log("checkState is :", checkState);
-  }, [checkState]);
+  }, [checkState, deliveryFlag]);
   const e2p = (s) => s.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -97,6 +98,9 @@ export function Orders() {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+  const changeModalHandler = (value) => {
+    setDeliveryFlag(value);
   };
 
   return (
@@ -144,9 +148,7 @@ export function Orders() {
                           color={color}
                           id={order.id}
                           orderData={order}
-                          // color="green"
-                          // className={(classes.button, color)}
-                          // startIcon={<AssignmentTurnedInIcon />}
+                          onChange={changeModalHandler}
                         >
                           بررسی سفارش
                         </OrdersModal>
