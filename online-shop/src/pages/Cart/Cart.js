@@ -104,7 +104,7 @@ function Cart(props) {
                   {cartProducts.map((product, index) => {
                     return (
                       <TableRow key={index}>
-                        <TableCell align="center">{product.name}</TableCell>
+                        <TableCell align="center">{product.product}</TableCell>
                         <TableCell align="center" className="cell">
                           {insertrialcamma(e2p(JSON.stringify(product.price)))}
                         </TableCell>

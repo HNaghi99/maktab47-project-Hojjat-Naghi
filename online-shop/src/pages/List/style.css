@@ -79,7 +79,7 @@ aside {
 }
 .side-bar > aside,
 .main-section {
-  flex: 1 !important;
+  /* flex: 1 !important; */
   overflow: auto !important;
 }
 .MuiAccordionDetails-root {

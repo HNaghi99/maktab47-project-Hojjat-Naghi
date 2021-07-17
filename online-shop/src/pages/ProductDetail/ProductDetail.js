@@ -15,9 +15,11 @@ import { useDispatch } from "react-redux";
 import draftToHtml from "draftjs-to-html";
 import { convertToRaw } from "draft-js";
 import ReactHtmlParser from "react-html-parser";
+import { useSelector } from "react-redux";
 function ProductDetail() {
   const { productId } = useParams();
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart.cartProductsArray);
   const [productDetail, setProductDetail] = React.useState({
     price: "10000",
     description: "[]",
@@ -59,7 +61,15 @@ function ProductDetail() {
       id: productDetail.id,
       number: stock,
     };
-    dispatch(cartAction.addToCart(productData));
+    const productInCart = cart.filter((product) => product.id == productId);
+    const stockOfProductInStore = +productDetail.stock;
+    if (productInCart.length === 0) dispatch(cartAction.addToCart(productData));
+    else {
+      const addStock = +stock;
+      const totalStock = productInCart[0].number + addStock;
+      if (productInCart[0].number + addStock <= stockOfProductInStore)
+        dispatch(cartAction.addToCart(productData));
+    }
   };
   const stockChangeHandler = (e) => {
     setStock(e.target.value);

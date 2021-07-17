@@ -4,7 +4,12 @@ import CheckCircleRoundedIcon from "@material-ui/icons/CheckCircleRounded";
 import CancelRoundedIcon from "@material-ui/icons/CancelRounded";
 import { useDispatch, useSelector } from "react-redux";
 import { cartAction } from "../../redux/reducer/cartReducer";
-import { postOrder } from "../../api/Api";
+import {
+  deleteProduct,
+  getProductWithId,
+  patchProduct,
+  postOrder,
+} from "../../api/Api";
 import styles from "./style.module.css";
 function ShoppingResult(props) {
   const { shoppingStatus } = useParams();
@@ -32,6 +37,20 @@ function ShoppingResult(props) {
       formData.append("deliveryTime", " ");
       formData.append("cart", JSON.stringify(cart));
       postOrder(formData).then(() => {
+        cart.forEach(async (product) => {
+          const productData = await getProductWithId(product.id);
+          const stockOfProduct = +productData.stock;
+          if (stockOfProduct - product.number === 0) {
+            await deleteProduct(product.id);
+            console.log("products are deleted");
+          } else {
+            const formData = new FormData();
+            formData.append("stock", stockOfProduct - product.number);
+            await patchProduct(formData, product.id);
+            console.log("products are changed");
+          }
+        });
+        console.log("cart content is:", cart);
         dispatch(cartAction.clearCart());
         console.log(
           "your order is successfully",
