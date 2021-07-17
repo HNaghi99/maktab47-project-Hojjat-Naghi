@@ -69,6 +69,7 @@ aside {
 }
 .list-of-group {
   list-style: none;
+  padding: 0;
 }
 .side-bar,
 .main-wrapper {
@@ -80,6 +81,11 @@ aside {
 .main-section {
   flex: 1 !important;
   overflow: auto !important;
+}
+.MuiAccordionDetails-root {
+  flex-direction: column !important;
+  align-items: center !important;
+  padding: 0 16px !important;
 }
 
 @media only screen and (max-width: 600px) {
