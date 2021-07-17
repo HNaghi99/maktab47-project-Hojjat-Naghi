@@ -14,7 +14,7 @@ export default class RTLComponent extends Component {
   render() {
     return (
       <ThemeProvider theme={CustomTheme}>
-        <StylesProvider jss={jss}></StylesProvider>
+        <StylesProvider jss={jss}>{this.props.children}</StylesProvider>
       </ThemeProvider>
     );
   }

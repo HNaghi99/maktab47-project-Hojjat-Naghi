@@ -3,9 +3,6 @@ import { faIR } from "@material-ui/core/locale";
 const CustomTheme = createMuiTheme(
   {
     direction: "rtl",
-    typography: {
-      fontFamily: "Vazir",
-    },
   },
   faIR
 );
