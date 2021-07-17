@@ -17,6 +17,8 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { OrdersModal } from "./components/OrdersModal";
 import { instanceOf, string } from "prop-types";
+import { SnackbarProvider, useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
 const columns = [
   { id: "name", label: "نام کاربر", minWidth: 170 },
   { id: "amount", label: "مجموع مبلغ", minWidth: 100 },
@@ -43,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Orders() {
+export function OrdersElement() {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -51,6 +53,20 @@ export function Orders() {
   const [color, setColor] = React.useState("success");
   const [orders, setOrders] = React.useState([]);
   const [deliveryFlag, setDeliveryFlag] = React.useState(true);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const handleClickVariant = (message, variant) => {
+    enqueueSnackbar(
+      message,
+      { variant },
+      {
+        anchorOrigin: {
+          vertical: "bottom",
+          horizontal: "right",
+        },
+        TransitionComponent: Slide,
+      }
+    );
+  };
   const radioHandler = (value, color) => {
     setCheck(value);
     setColor(color);
@@ -101,6 +117,7 @@ export function Orders() {
   };
   const changeModalHandler = (value) => {
     setDeliveryFlag(value);
+    handleClickVariant("تغییرات با موفقیت ثبت شد", "success");
   };
 
   return (
@@ -170,5 +187,19 @@ export function Orders() {
         />
       </Paper>
     </>
+  );
+}
+
+export function Orders(props) {
+  return (
+    <SnackbarProvider
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "right",
+      }}
+      TransitionComponent={Slide}
+    >
+      <OrdersElement />
+    </SnackbarProvider>
   );
 }

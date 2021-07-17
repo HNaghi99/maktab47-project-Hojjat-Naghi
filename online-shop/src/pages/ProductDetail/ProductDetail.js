@@ -16,6 +16,7 @@ import draftToHtml from "draftjs-to-html";
 import { convertToRaw } from "draft-js";
 import ReactHtmlParser from "react-html-parser";
 import { useSelector } from "react-redux";
+import { loaderAction } from "../../redux/reducer/loadReducer";
 function ProductDetail() {
   const { productId } = useParams();
   const dispatch = useDispatch();
@@ -36,9 +37,10 @@ function ProductDetail() {
       return getProductWithId(productId);
     };
     const product = productData();
+    dispatch(loaderAction.displayLoader());
     product.then((product) => {
       setProductDetail(product);
-      console.log("babamo daravordi", JSON.parse(product.description));
+      dispatch(loaderAction.hideLoader());
     });
   }, [productId]);
   const e2p = (s) => s.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);

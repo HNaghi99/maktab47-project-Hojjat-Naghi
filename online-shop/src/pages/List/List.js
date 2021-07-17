@@ -12,6 +12,8 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { makeStyles } from "@material-ui/core/styles";
+import { useDispatch } from "react-redux";
+import { loaderAction } from "../../redux/reducer/loadReducer";
 //add
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 //
 function List(props) {
+  const dispatch = useDispatch();
   //add
   const [expanded, setExpanded] = React.useState(false);
   const classes = useStyles();
@@ -52,6 +55,7 @@ function List(props) {
     const groupProvider = async () => {
       return getGroups();
     };
+    dispatch(loaderAction.displayLoader());
     const groups = groupProvider();
     groups.then((groups) => {
       const arrayOfGroups = [];
@@ -78,6 +82,7 @@ function List(props) {
     products.then((products) => {
       console.log("products are:", products, groupName);
       setProducts(products);
+      dispatch(loaderAction.hideLoader());
     });
   }, [groupName]);
   return (

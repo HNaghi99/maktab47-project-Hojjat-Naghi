@@ -16,6 +16,7 @@ import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import { InputField } from "../../../../Login/components/InputField";
 import { SelectItem } from "../../../../../components/Select";
 import { convertToRaw, EditorState, Editor } from "draft-js";
+import { useDispatch } from "react-redux";
 // import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import joi from "joi";
@@ -23,6 +24,7 @@ import { SnackbarProvider, useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
 import draftToHtml from "draftjs-to-html";
 import { stateToHTML } from "draft-js-export-html";
+import { loaderAction } from "../../../../../redux/reducer/loadReducer";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -34,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export function Add(props) {
+  const dispatch = useDispatch();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const handleClickVariant = (message, variant) => {
     enqueueSnackbar(
@@ -132,6 +135,7 @@ export function Add(props) {
       if (addedData.error) {
         throw new Error(addedData.error.message);
       } else {
+        dispatch(loaderAction.displayLoader());
         formData.append("name", name);
         formData.append("header", head);
         formData.append("group", group);
@@ -141,8 +145,8 @@ export function Add(props) {
         formData.append("price", "0");
         postProduct(formData).then(() => {
           handleCloseDeleteDialog();
-          handleClickVariant("محصول با موفقیت اضافه شد", "success");
           setFlag(flag + 1);
+          dispatch(loaderAction.hideLoader());
           props.onSelect(flag + 1);
         });
       }

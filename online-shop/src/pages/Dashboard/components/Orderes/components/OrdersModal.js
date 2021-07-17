@@ -17,6 +17,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { patchOrder } from "../../../../../api/Api";
+import { useDispatch } from "react-redux";
+import { loaderAction } from "../../../../../redux/reducer/loadReducer";
 
 const columns = [
   { id: "product", label: "کالا", minWidth: 170 },
@@ -39,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export function OrdersModal(props) {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const cart = JSON.parse(props.orderData.cart);
   const [deliveryFlag, setDeliveryFlag] = React.useState(false);
@@ -63,6 +66,7 @@ export function OrdersModal(props) {
     setOpenDelete(false);
   };
   const changeDeliveryStatus = () => {
+    dispatch(loaderAction.displayLoader());
     const nowDate = new Date().toLocaleDateString("fa-IR");
     const formData = new FormData();
     formData.append("deliveryStatus", "true");
@@ -70,6 +74,7 @@ export function OrdersModal(props) {
     patchOrder(formData, props.id).then(() => {
       console.log("all is OK");
       props.onChange(deliveryFlag);
+      dispatch(loaderAction.hideLoader());
       setDeliveryFlag(!deliveryFlag);
       setOpenDelete(false);
     });

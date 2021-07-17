@@ -6,8 +6,10 @@ import Slider from "react-slick";
 import { getProducts } from "../../api/Api";
 import "./style.css";
 import { Box } from "@material-ui/core";
-
+import { useDispatch } from "react-redux";
+import { loaderAction } from "../../redux/reducer/loadReducer";
 function Home(props) {
+  const dispatch = useDispatch();
   const [groups, setGroups] = React.useState([]);
   let globalArray = [];
   let groupArray = [];
@@ -61,24 +63,30 @@ function Home(props) {
       return getProducts();
     };
     const data = dataProvider();
-    data.then((group) => {
-      group.forEach((element, index, array) => {
-        const header = element.header;
-        if (header !== previousHeader) {
-          previousHeader = header;
-          if (index !== 0) {
-            globalArray.push(groupArray);
-            groupArray = [];
+    dispatch(loaderAction.displayLoader());
+    data.then(async (groups) => {
+      const arrayOfGroups = [];
+      let groupObject = {};
+      for (let i = 0; i < groups.length; i++) {
+        const header = groups[i].header;
+        const index = groups.findIndex((group) => group.header === header);
+        if (i === index) {
+          console.log("header is:", header, groups);
+          groupObject[`${header}`] = [];
+          for (let j = 0; j < groups.length; j++) {
+            if (groups[j].header === header) {
+              groupObject[`${header}`].push(groups[j]);
+            }
           }
+          arrayOfGroups.push(groupObject);
+          groupObject = {};
+          console.log("GLOBAL ARRAY IS:", arrayOfGroups);
         }
-        if (header === previousHeader) {
-          groupArray.push(element);
-        }
-        if (index === array.length - 1) {
-          globalArray.push(groupArray);
-        }
-      });
-      setGroups(globalArray);
+      }
+      // await setTimeout(() => {
+      dispatch(loaderAction.hideLoader());
+      // }, 3000);
+      setGroups(arrayOfGroups);
     });
   }, []);
   const e2p = (s) => s.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
@@ -103,12 +111,12 @@ function Home(props) {
               <Box
                 component={Link}
                 className="groups-link"
-                to={`/groups/${group[0].group}`}
+                to={`/groups/${Object.values(group)[0][0]["group"]}`}
               >
-                کالاهای گروه {group[0].header}
+                کالاهای گروه {Object.keys(group)[0]}
               </Box>
               <Slider {...settings}>
-                {group.map((product) => {
+                {Object.values(group)[0].map((product) => {
                   return (
                     <div>
                       <div className="slider-item">

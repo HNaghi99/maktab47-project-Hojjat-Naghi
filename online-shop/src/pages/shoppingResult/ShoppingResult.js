@@ -11,6 +11,7 @@ import {
   postOrder,
 } from "../../api/Api";
 import styles from "./style.module.css";
+import { loaderAction } from "../../redux/reducer/loadReducer";
 function ShoppingResult(props) {
   const { shoppingStatus } = useParams();
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function ShoppingResult(props) {
       formData.append("OrderTime", orderTime);
       formData.append("deliveryTime", " ");
       formData.append("cart", JSON.stringify(cart));
+      dispatch(loaderAction.displayLoader());
       postOrder(formData).then(() => {
         cart.forEach(async (product) => {
           const productData = await getProductWithId(product.id);
@@ -52,6 +54,7 @@ function ShoppingResult(props) {
         });
         console.log("cart content is:", cart);
         dispatch(cartAction.clearCart());
+        dispatch(loaderAction.hideLoader());
         console.log(
           "your order is successfully",
           new Date().toLocaleDateString("fa-IR")

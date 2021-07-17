@@ -18,18 +18,10 @@ const useStyles = makeStyles((theme) => ({
 export function SelectItem(props) {
   const [click, setClick] = React.useState(false);
   const [header, setHeader] = React.useState(null);
-  const [obj, setObj] = React.useState(null);
-  const [objList, setObjList] = React.useState([]);
+  const [subGroup, setSubgroup] = React.useState(null);
+  const [subgroupList, setSubgroupList] = React.useState([]);
   const classes = useStyles();
   const [group, setGroups] = React.useState([]);
-  const [headers, setHeaders] = React.useState([]);
-  const [state, setState] = React.useState({
-    age: "",
-    name: "hai",
-  });
-  let globalData = [];
-  let groupArray = [];
-  let previousHeader;
   const findIndex = (name) => {
     const ListOfNames = [];
     group.forEach((element) => {
@@ -44,42 +36,39 @@ export function SelectItem(props) {
     const objectList = group[findIndex(head)][head];
     console.log("OBJECT list is:", objectList);
     setHeader(head);
-    setObjList(objectList);
-    setObj(null);
+    setSubgroupList(objectList);
+    setSubgroup(null);
   };
   const handleLanguageChange = (e) => {
     const name = e.target.value;
     props.group(name);
-    setObj(name);
+    setSubgroup(name);
   };
   React.useEffect(() => {
     async function dataProvider() {
       return getGroups();
     }
     const data = dataProvider();
-    data.then((group) => {
-      group.forEach((element, index, array) => {
-        const header = element.header;
-        const name = element.name;
-        if (previousHeader !== header) {
-          const objOfData = {};
-          if (index !== 0) {
-            objOfData[`${previousHeader}`] = groupArray;
-            globalData.push(objOfData);
+    data.then((groups) => {
+      const arrayOfGroups = [];
+      let groupObject = {};
+      for (let i = 0; i < groups.length; i++) {
+        const header = groups[i].header;
+        const index = groups.findIndex((group) => group.header === header);
+        if (i === index) {
+          console.log("header is:", header, groups);
+          groupObject[`${header}`] = [];
+          for (let j = 0; j < groups.length; j++) {
+            if (groups[j].header === header) {
+              groupObject[`${header}`].push(groups[j].name);
+            }
           }
-          previousHeader = header;
-          groupArray = [];
+          arrayOfGroups.push(groupObject);
+          groupObject = {};
+          console.log("GLOBAL ARRAY IS:", arrayOfGroups);
         }
-        if (previousHeader === header) {
-          groupArray.push(name);
-        }
-        if (index === array.length - 1) {
-          const objOfData = {};
-          objOfData[`${previousHeader}`] = groupArray;
-          globalData.push(objOfData);
-        }
-      });
-      setGroups(globalData);
+      }
+      setGroups(arrayOfGroups);
     });
   }, []);
   return (
@@ -113,7 +102,7 @@ export function SelectItem(props) {
         <InputLabel htmlFor="filled-age-native-simple">زیرگروه</InputLabel>
         <Select
           native
-          value={obj}
+          value={subGroup}
           onChange={handleLanguageChange}
           inputProps={{
             name: "age",
@@ -121,7 +110,7 @@ export function SelectItem(props) {
           }}
         >
           <option aria-label="None" value="" disabled={true} selected={true} />
-          {objList.map((obj) => {
+          {subgroupList.map((obj) => {
             return <option value={obj}>{obj}</option>;
           })}
         </Select>

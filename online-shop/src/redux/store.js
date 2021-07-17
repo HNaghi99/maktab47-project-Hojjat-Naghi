@@ -6,10 +6,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { AuthReducer } from "./reducer/authReducer";
 import { CartReducer } from "./reducer/cartReducer";
 import { CustomerReducer } from "./reducer/customReducer";
+import { LoadReducer } from "./reducer/loadReducer";
 const rootReducer = combineReducers({
   auth: AuthReducer.reducer,
   cart: CartReducer.reducer,
   customer: CustomerReducer.reducer,
+  loader: LoadReducer.reducer,
 });
 const persistConfig = {
   key: "root",

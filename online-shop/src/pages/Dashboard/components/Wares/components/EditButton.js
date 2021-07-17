@@ -20,6 +20,8 @@ import { patchProduct } from "../../../../../api/Api";
 import joi from "joi";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
+import { useDispatch } from "react-redux";
+import { loaderAction } from "../../../../../redux/reducer/loadReducer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function Edit(props) {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
   const handleClickVariant = (message, variant) => {
     enqueueSnackbar(
       message,
@@ -113,6 +116,7 @@ export function Edit(props) {
     try {
       if (editedData.error) throw new Error(editedData.error.message);
       else {
+        dispatch(loaderAction.displayLoader());
         formData.append("name", name);
         formData.append("header", head);
         formData.append("group", group);
@@ -120,8 +124,8 @@ export function Edit(props) {
         formData.append("image", image);
         patchProduct(formData, props.product.id).then(() => {
           handleCloseDeleteDialog();
-          handleClickVariant("محصول با موفقیت ویرایش گردید", "success");
           setFlag(flag + 1);
+          dispatch(loaderAction.hideLoader());
           props.onSelect(flag + 1);
         });
       }

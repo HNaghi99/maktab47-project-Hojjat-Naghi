@@ -18,6 +18,10 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { instanceOf, string } from "prop-types";
 import { AddButton } from "./components/AddButton";
+import { useDispatch } from "react-redux";
+import { loaderAction } from "../../../../redux/reducer/loadReducer";
+import { SnackbarProvider, useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
 
 const columns = [
   { id: "picture", label: "تصویر", minWidth: 170 },
@@ -44,7 +48,8 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
 }));
-export function Wares() {
+export function WaresItem() {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -52,13 +57,31 @@ export function Wares() {
   const [deletedProductId, setDeletedId] = React.useState("");
   const [editedProductId, setEditedId] = React.useState([2]);
   const [addedProduct, setAddProduct] = React.useState([1]);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const handleClickVariant = (message, variant) => {
+    enqueueSnackbar(
+      message,
+      { variant },
+      {
+        anchorOrigin: {
+          vertical: "bottom",
+          horizontal: "right",
+        },
+        TransitionComponent: Slide,
+      }
+    );
+  };
   React.useEffect(() => {
     const dataProvider = async () => {
       return getProducts();
     };
     // dataProvider();
     const data = dataProvider();
-    data.then((product) => setProducts(product));
+    dispatch(loaderAction.displayLoader());
+    data.then((product) => {
+      setProducts(product);
+      dispatch(loaderAction.hideLoader());
+    });
   }, [deletedProductId, editedProductId, addedProduct]);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -71,12 +94,15 @@ export function Wares() {
   };
   const deleteHandler = (id) => {
     setDeletedId(id);
+    handleClickVariant("محصول مورد نظر حذف گردید", "success");
   };
   const editHandler = (id) => {
     setEditedId([...editedProductId, id]);
+    handleClickVariant("ویرایش با موفقیت انجام شد", "success");
   };
   const addHandler = (id) => {
     setAddProduct([...addedProduct, id]);
+    handleClickVariant("محصول مورد نظر اضافه شد", "success");
   };
   return (
     <>
@@ -154,5 +180,19 @@ export function Wares() {
         />
       </Paper>
     </>
+  );
+}
+
+export function Wares(props) {
+  return (
+    <SnackbarProvider
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "right",
+      }}
+      TransitionComponent={Slide}
+    >
+      <WaresItem onSelect={props.onSelect} />
+    </SnackbarProvider>
   );
 }

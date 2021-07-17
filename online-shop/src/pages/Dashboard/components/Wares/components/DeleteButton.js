@@ -7,8 +7,27 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
-export function DeleteButton(props) {
+import { useDispatch } from "react-redux";
+import { SnackbarProvider, useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
+import { loaderAction } from "../../../../../redux/reducer/loadReducer";
+export function Delete(props) {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
   const [openDeleteDialog, setOpenDelete] = React.useState(false);
+  const handleClickVariant = (message, variant) => {
+    enqueueSnackbar(
+      message,
+      { variant },
+      {
+        anchorOrigin: {
+          vertical: "bottom",
+          horizontal: "right",
+        },
+        TransitionComponent: Slide,
+      }
+    );
+  };
   const handleOpenDeleteDialog = () => {
     setOpenDelete(true);
   };
@@ -47,8 +66,11 @@ export function DeleteButton(props) {
           <Button
             onClick={() => {
               console.log("id of button clicked is:", props.id);
-              deleteProduct(props.id);
-              props.onSelect(props.id);
+              dispatch(loaderAction.displayLoader());
+              deleteProduct(props.id).then(() => {
+                dispatch(loaderAction.hideLoader());
+                props.onSelect(props.id);
+              });
             }}
             color="primary"
             className="MuiButton-containedPrimary"
@@ -58,5 +80,18 @@ export function DeleteButton(props) {
         </DialogActions>
       </Dialog>
     </>
+  );
+}
+export function DeleteButton(props) {
+  return (
+    <SnackbarProvider
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "right",
+      }}
+      TransitionComponent={Slide}
+    >
+      <Delete id={props.id} class={props.class} onSelect={props.onSelect} />
+    </SnackbarProvider>
   );
 }

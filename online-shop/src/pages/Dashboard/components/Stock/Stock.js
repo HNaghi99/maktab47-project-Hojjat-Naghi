@@ -20,6 +20,8 @@ import { instanceOf, string } from "prop-types";
 import joi from "joi";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
+import { loaderAction } from "../../../../redux/reducer/loadReducer";
+import { useDispatch } from "react-redux";
 
 const columns = [
   { id: "picture", label: "کالا", minWidth: 170 },
@@ -48,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function StockComponent() {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
   const handleClickVariant = (message, variant) => {
     enqueueSnackbar(
       message,
@@ -111,10 +114,12 @@ export function StockComponent() {
       try {
         if (editedData.error) throw new Error(editedData.error.message);
         else {
+          dispatch(loaderAction.displayLoader());
           formData.append("price", changedProperties.price);
           formData.append("stock", changedProperties.stock);
           patchProduct(formData, id).then(() => {
             setFlag(!flag);
+            dispatch(loaderAction.hideLoader());
             handleClickVariant("ویرایش با موفقیت انجام شد", "success");
           });
         }
@@ -175,9 +180,7 @@ export function StockComponent() {
                 .map((product) => {
                   return (
                     <TableRow key={product.id}>
-                      <TableCell align="center">
-                        {product.description}
-                      </TableCell>
+                      <TableCell align="center">{product.name}</TableCell>
                       <TableCell align="center" className="cell">
                         <Text
                           type="price"
