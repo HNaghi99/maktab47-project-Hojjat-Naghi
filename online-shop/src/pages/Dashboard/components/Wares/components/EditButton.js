@@ -11,7 +11,7 @@ import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import { InputField } from "../../../../Login/components/InputField";
+import { InputField } from "../../../../../components/InputField";
 import { SelectItem } from "../../../../../components/Select";
 import { EditorState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";

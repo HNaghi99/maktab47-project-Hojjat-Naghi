@@ -5525,17 +5525,6 @@
       "image": "/files/fda5dc1bcc802c2543fb143ea037f77b",
       "createdAt": 1626583730942,
       "id": 475
-    },
-    {
-      "name": "آب معدنی عطش",
-      "header": "نوشیدنی",
-      "group": "آب",
-      "description": "",
-      "stock": "10",
-      "price": "2000",
-      "image": "/files/b4ebe2c17c35d4e2b8f0330a78b23858",
-      "createdAt": 1626624726951,
-      "id": 476
     }
   ],
   "groups": [

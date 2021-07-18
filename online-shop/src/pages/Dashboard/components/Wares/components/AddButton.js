@@ -13,7 +13,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import { InputField } from "../../../../Login/components/InputField";
+import { InputField } from "../../../../../components/InputField";
 import { SelectItem } from "../../../../../components/Select";
 import { convertToRaw, EditorState, Editor } from "draft-js";
 import { useDispatch } from "react-redux";

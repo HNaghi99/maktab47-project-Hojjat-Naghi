@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { Box } from "@material-ui/core";
-import { InputField } from "./components/InputField";
+import { InputField } from "../../components/InputField";
 import { SubmitButton } from "./components/Button";
 import { Link, Redirect, Route } from "react-router-dom";
 import { useState } from "react";
