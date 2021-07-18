@@ -55,7 +55,7 @@ export default function PrivateHeader() {
         <Box bgcolor="primary.main" color="primary.contrastText">
           <Grid container>
             <Grid item xs={12} sm={5} md={3}>
-              <Box component="h1" mr={"8px"}>
+              <Box component="h1" mr={"8px"} className="private-header-title">
                 پنل مدیریت فروشگاه
               </Box>
             </Grid>

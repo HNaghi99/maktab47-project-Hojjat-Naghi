@@ -124,6 +124,11 @@ export function Edit(props) {
         formData.append("image", image);
         patchProduct(formData, props.product.id).then(() => {
           handleCloseDeleteDialog();
+          setName("");
+          setHead("");
+          setGroup("");
+          setDes("");
+          setImage(null);
           setFlag(flag + 1);
           dispatch(loaderAction.hideLoader());
           props.onSelect(flag + 1);

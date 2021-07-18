@@ -1,3 +1,6 @@
 .MuiTabs-flexContainer {
   justify-content: center;
 }
+.private-header-title {
+  padding: 5px !important;
+}

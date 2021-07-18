@@ -10,7 +10,7 @@ import joi from "joi";
 import { authAction } from "../../redux/reducer/authReducer";
 import { useDispatch } from "react-redux";
 import RTLComponent from "../../Theme/RTLComponent";
-function Login() {
+function LoginComponent() {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const schema = joi.object({
@@ -105,7 +105,7 @@ function Login() {
     </RTLComponent>
   );
 }
-export function LoginPage() {
+export function Login() {
   return (
     <SnackbarProvider
       anchorOrigin={{
@@ -114,7 +114,7 @@ export function LoginPage() {
       }}
       TransitionComponent={Slide}
     >
-      <Login />
+      <LoginComponent />
     </SnackbarProvider>
   );
 }

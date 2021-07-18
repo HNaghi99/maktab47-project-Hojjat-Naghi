@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import './App.css';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./components/Private.Route";
 import PublicRoute from "./components/Public.Route";
 import {
@@ -10,14 +10,13 @@ import {
   Home,
   List,
   Login,
-  Payment,
+  NotFound,
   ProductDetail,
   ShoppingResult,
   Orders,
   Wares,
   Stock,
 } from "../pages/Index";
-import { LoginPage } from "../pages/Login/Login";
 class Router extends Component {
   render() {
     return (
@@ -47,25 +46,23 @@ class Router extends Component {
           />
           <PublicRoute
             restricted={false}
-            component={Payment}
-            path="/payment"
-            exact
-          />
-          <PublicRoute
-            restricted={false}
             component={Finalize}
             path="/finalize"
             exact
           />
           <PublicRoute
             restricted={true}
-            component={LoginPage}
+            component={Login}
             path="/login"
             exact
           />
           <PrivateRoute component={Dashboard} path="/dashboard" exact />
-          {/* <PrivateRoute component={Stock} path="/dashboard/stock" exact />
-          <PrivateRoute component={Orders} path="/dashboard/orders" exact /> */}
+          <Route to="not-found">
+            <NotFound />
+          </Route>
+          <Route>
+            <Redirect to="not-found"></Redirect>
+          </Route>
         </Switch>
       </BrowserRouter>
     );

@@ -145,6 +145,11 @@ export function Add(props) {
         formData.append("price", "0");
         postProduct(formData).then(() => {
           handleCloseDeleteDialog();
+          setName("");
+          setHead("");
+          setGroup("");
+          setDes("");
+          setImage(null);
           setFlag(flag + 1);
           dispatch(loaderAction.hideLoader());
           props.onSelect(flag + 1);
