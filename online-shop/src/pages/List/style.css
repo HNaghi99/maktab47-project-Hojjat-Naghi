@@ -33,10 +33,10 @@ aside {
 }
 .card {
   display: flex;
-  background-color: #71f1b1;
+  background-color: rgb(230 241 235);
   border-radius: 10px;
-  justify-content: space-around;
-  padding: 5px;
+  justify-content: space-evenly;
+  padding: 5px 2px;
   margin: 3px;
   height: 125px;
 }
@@ -93,4 +93,7 @@ aside {
   .main-wrapper {
     height: calc(100vh - 126.875px) !important;
   }
+}
+.group-img {
+  margin-left: 5px;
 }

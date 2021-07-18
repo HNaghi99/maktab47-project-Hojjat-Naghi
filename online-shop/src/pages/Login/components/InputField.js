@@ -4,10 +4,10 @@ import React, { Component } from "react";
 import { useState } from "react";
 const useStyles = makeStyles((theme) => ({
   labelRoot: {
-    right: 0,
+    // right: 0,
   },
   shrink: {
-    transformOrigin: "top right",
+    // transformOrigin: "top right",
   },
 }));
 export function InputField(props) {

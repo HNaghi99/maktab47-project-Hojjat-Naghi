@@ -108,7 +108,9 @@ function FinalizeElements(props) {
   };
   return (
     <main>
-      <h2 className="finalize-title">نهایی کردن خرید</h2>
+      <div className="finalize-title-container">
+        <h2 className="finalize-title">نهایی کردن خرید</h2>
+      </div>
       <form onSubmit={customerDataHandler}>
         <Grid container>
           <Grid item className="finalize-field" xs={12} sm={6}>
@@ -166,7 +168,7 @@ export function Finalize(props) {
     <SnackbarProvider
       anchorOrigin={{
         vertical: "bottom",
-        horizontal: "right",
+        horizontal: "left",
       }}
       TransitionComponent={Slide}
     >

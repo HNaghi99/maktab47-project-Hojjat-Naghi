@@ -221,7 +221,7 @@ export function Stock(props) {
     <SnackbarProvider
       anchorOrigin={{
         vertical: "bottom",
-        horizontal: "right",
+        horizontal: "left",
       }}
       TransitionComponent={Slide}
     >

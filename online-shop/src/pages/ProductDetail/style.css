@@ -1,10 +1,10 @@
 .bread-crumb-link {
-  color: black;
+  color: rgb(21, 199, 223);
   text-decoration: none;
   font-weight: bold;
 }
 .bread-crumb-link:hover {
-  color: gray;
+  color: rgba(64, 227, 249, 1);
 }
 .input-number {
   margin-left: 10px;
@@ -23,6 +23,7 @@ button.add-to-cart-btn {
   background-color: green;
   color: white;
   font-weight: bold;
+  padding: 3px;
 }
 button.add-to-cart-btn:hover {
   background-color: rgb(89, 255, 47);
@@ -44,4 +45,7 @@ button.add-to-cart-btn:hover {
 }
 .product-details-page {
   padding: 5px;
+}
+.product-name {
+  color: darkgray !important;
 }

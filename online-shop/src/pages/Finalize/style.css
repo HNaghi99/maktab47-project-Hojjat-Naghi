@@ -51,7 +51,12 @@ div.finalize-field {
   border-radius: 7px !important;
   margin-top: 20px !important;
   border: none;
+  cursor: pointer !important;
 }
 .pay-btn:hover {
   background-color: rgb(89, 255, 47) !important;
+}
+.finalize-title-container {
+  width: 90%;
+  margin: auto;
 }

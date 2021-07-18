@@ -64,28 +64,32 @@ function ShoppingResult(props) {
   }, []);
   return (
     <>
-      <h2 className={styles.header}>نتیجه پرداخت</h2>
-      <main className={`${styles.shoppingStatus}`}>
-        {shoppingStatus === "successful" ? (
-          <>
-            <CheckCircleRoundedIcon
-              className={`${styles.icon} ${styles.success}`}
-            />
-            <p className={`${styles.statusText}`}>
-              با تشکر از پرداخت شما سفارش شما ثبت شده و جهت هماهنگی ارسال با شما
-              تماس گرفته خواهد شد.
-            </p>
-          </>
-        ) : (
-          <>
-            <CancelRoundedIcon
-              className={`${styles.icon} ${styles.unsuccess}`}
-            />
-            <p className={`${styles.statusText}`}>
-              پرداخت موفقیت آمیز نبود سفارش شما در انتظار پرداخت است.
-            </p>
-          </>
-        )}
+      <main>
+        <div className={styles.titleContainer}>
+          <h2 className={styles.header}>نتیجه پرداخت</h2>
+        </div>
+        <div className={`${styles.shoppingStatus}`}>
+          {shoppingStatus === "successful" ? (
+            <>
+              <CheckCircleRoundedIcon
+                className={`${styles.icon} ${styles.success}`}
+              />
+              <p className={`${styles.statusText}`}>
+                با تشکر از پرداخت شما سفارش شما ثبت شده و جهت هماهنگی ارسال با
+                شما تماس گرفته خواهد شد.
+              </p>
+            </>
+          ) : (
+            <>
+              <CancelRoundedIcon
+                className={`${styles.icon} ${styles.unsuccess}`}
+              />
+              <p className={`${styles.statusText}`}>
+                پرداخت موفقیت آمیز نبود سفارش شما در انتظار پرداخت است.
+              </p>
+            </>
+          )}
+        </div>
       </main>
     </>
   );

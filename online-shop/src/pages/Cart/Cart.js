@@ -75,7 +75,9 @@ function Cart(props) {
   }
   return (
     <main>
-      <h2 className="cart-title">سبد خرید</h2>
+      <div className="cart-title-container">
+        <h2 className="cart-title">سبد خرید</h2>
+      </div>
       {!cartProducts.length ? (
         <h3 className="cart-message">محصولی برای نمایش وجود ندارد</h3>
       ) : (

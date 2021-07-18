@@ -105,7 +105,7 @@ function ProductDetail() {
                 >
                   {productDetail.group}
                 </Link>
-                <Typography color="textPrimary">
+                <Typography color="textPrimary" className="product-name">
                   {productDetail.name}
                 </Typography>
               </Breadcrumbs>

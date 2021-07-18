@@ -9,7 +9,7 @@ import Slide from "@material-ui/core/Slide";
 import joi from "joi";
 import { authAction } from "../../redux/reducer/authReducer";
 import { useDispatch } from "react-redux";
-
+import RTLComponent from "../../Theme/RTLComponent";
 function Login() {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const dispatch = useDispatch();
@@ -61,46 +61,48 @@ function Login() {
     }
   };
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-      height="100vh"
-      color="white"
-      px={"10px"}
-      style={{
-        background: "linear-gradient(to right, #12c2e9, #c471ed, #f64f59)",
-      }}
-    >
-      <form onSubmit={submitHandler}>
-        <Box component="h1" textAlign="center">
-          ورود به پنل مدیریت فروشگاه سیب
-        </Box>
-        <Box display="flex" flexDirection="column">
-          <InputField label="نام کاربری" onChangeInput={userNameHandler} />
-          <InputField
-            label="کلمه عبور"
-            type="password"
-            onChangeInput={passwordHandler}
-          />
-          <SubmitButton />
-          <Box
-            component={Link}
-            exact
-            to="/"
-            alignSelf="flex-end"
-            style={{
-              textDecoration: "none",
-              color: "yellow",
-              fontWeight: "bold",
-            }}
-          >
-            بازگشت به سایت
+    <RTLComponent>
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+        color="white"
+        px={"10px"}
+        style={{
+          background: "linear-gradient(to right, #12c2e9, #c471ed, #f64f59)",
+        }}
+      >
+        <form onSubmit={submitHandler}>
+          <Box component="h1" textAlign="center">
+            ورود به پنل مدیریت فروشگاه سیب
           </Box>
-        </Box>
-      </form>
-    </Box>
+          <Box display="flex" flexDirection="column">
+            <InputField label="نام کاربری" onChangeInput={userNameHandler} />
+            <InputField
+              label="کلمه عبور"
+              type="password"
+              onChangeInput={passwordHandler}
+            />
+            <SubmitButton />
+            <Box
+              component={Link}
+              exact
+              to="/"
+              alignSelf="flex-end"
+              style={{
+                textDecoration: "none",
+                color: "yellow",
+                fontWeight: "bold",
+              }}
+            >
+              بازگشت به سایت
+            </Box>
+          </Box>
+        </form>
+      </Box>
+    </RTLComponent>
   );
 }
 export function LoginPage() {
@@ -108,7 +110,7 @@ export function LoginPage() {
     <SnackbarProvider
       anchorOrigin={{
         vertical: "bottom",
-        horizontal: "right",
+        horizontal: "left",
       }}
       TransitionComponent={Slide}
     >

@@ -1,9 +1,9 @@
 div.slider-item {
   display: flex;
-  justify-content: space-between;
-  background-color: rgb(118, 223, 171);
+  justify-content: space-evenly;
+  background-color: rgb(230 241 235);
   height: 180px;
-  padding: 10px;
+  padding: 10px 5px;
   border-radius: 13px;
   margin: 5px;
 }
@@ -26,17 +26,17 @@ div.slick-slider {
 }
 
 img {
-  border-radius: 41px;
+  border-radius: 15px;
 }
 .groups-link {
   font-weight: bold;
   text-decoration: none;
-  color: rgb(241, 16, 136);
+  color: rgb(16, 215, 241);
   font-size: x-large;
   padding-right: 8px;
 }
 .groups-link:hover {
-  color: rgb(163, 3, 88);
+  color: rgb(47, 151, 165);
 }
 .slide-container {
   margin: 20px 0;
@@ -45,6 +45,6 @@ img {
   margin-bottom: 0;
 }
 .slides-container {
-  background-color: rgb(164, 238, 204);
+  background-color: white;
   padding: 20px;
 }

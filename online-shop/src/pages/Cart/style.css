@@ -32,3 +32,7 @@ a.cart-finalize-link {
 a.cart-finalize-link:hover {
   background-color: rgb(89, 255, 47);
 }
+.cart-title-container {
+  width: 90%;
+  margin: auto;
+}

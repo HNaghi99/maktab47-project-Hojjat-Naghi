@@ -156,7 +156,10 @@ function List(props) {
                     className="card-container"
                   >
                     <div className="card">
-                      <img src={`http://localhost:3004${product.image}`} />
+                      <img
+                        src={`http://localhost:3004${product.image}`}
+                        className="group-img"
+                      />
                       <div className="price-and-name">
                         <h3>{product.name}</h3>
                         <h3 dir="rtl">

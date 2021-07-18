@@ -18,3 +18,7 @@
 .header {
   margin-right: 10px;
 }
+.titleContainer {
+  width: 90%;
+  margin: auto;
+}
