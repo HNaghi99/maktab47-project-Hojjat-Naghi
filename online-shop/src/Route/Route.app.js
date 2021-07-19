@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import './App.css';
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./components/Private.Route";
 import PublicRoute from "./components/Public.Route";
