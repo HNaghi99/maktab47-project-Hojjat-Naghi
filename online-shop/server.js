@@ -1,4 +1,6 @@
 const jsonServer = require("json-server");
+const express = require("express");
+const app = express();
 const server = jsonServer.create();
 const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
@@ -6,6 +8,21 @@ const fs = require("fs");
 const path = require("path");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
+app.use("/", express.static(__dirname + "/payment-page"));
+app.get("/", function (req, res) {
+  fs.readFile(
+    __dirname + "/payment-page/index.html",
+    "utf8",
+    function (err, text) {
+      res.send(text);
+    }
+  );
+});
+// app.get("/", function (req, res) {
+//   res.sendFile(path.join(__dirname + "/payment-page/index.html"));
+
+//   //__dirname : It will resolve to your project folder.
+// });
 
 // Set default middlewares (logger, static, cors and no-cache)
 server.use(middlewares);
@@ -97,7 +114,10 @@ server.use((req, res, next) => {
   // Continue to JSON Server router
   next();
 });
-
+// app.use("/", router);
+app.listen(3001, () => {
+  console.log("Express Server is running at http://localhost:3001/");
+});
 // Use default router (CRUDs of db.json)
 server.use(router);
 

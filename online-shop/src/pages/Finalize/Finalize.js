@@ -99,7 +99,7 @@ function FinalizeElements(props) {
           orderTime: nowDate,
         };
         dispatch(customerAction.saveCustomerData(customerData));
-        window.location.href = "http://127.0.0.1:5500/payment-page/index.html";
+        window.location.href = "http://http://localhost:3001/";
       }
     } catch (error) {
       handleClickVariant(error.message, "error");
