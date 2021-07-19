@@ -4,10 +4,6 @@ import { getProducts } from "../../../../api/Api";
 import { makeStyles } from "@material-ui/core/styles";
 import { DeleteButton } from "./components/DeleteButton";
 import { EditButton } from "./components/EditButton";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import EditIcon from "@material-ui/icons/Edit";
-import AddIcon from "@material-ui/icons/Add";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -16,7 +12,6 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import { instanceOf, string } from "prop-types";
 import { AddButton } from "./components/AddButton";
 import { useDispatch } from "react-redux";
 import { loaderAction } from "../../../../redux/reducer/loadReducer";
@@ -75,7 +70,6 @@ export function WaresItem() {
     const dataProvider = async () => {
       return getProducts();
     };
-    // dataProvider();
     const data = dataProvider();
     dispatch(loaderAction.displayLoader());
     data.then((product) => {
@@ -86,7 +80,6 @@ export function WaresItem() {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-  const handleDeleteProduct = (id) => {};
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
@@ -135,10 +128,7 @@ export function WaresItem() {
                     <TableRow key={product.id}>
                       <TableCell align="center">
                         <img
-                          src={"http://localhost:3004".concat(
-                            "",
-                            product.image
-                          )}
+                          src={`http://localhost:3004${product.image}`}
                           width="100px"
                         />
                       </TableCell>

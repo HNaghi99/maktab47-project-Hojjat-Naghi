@@ -76,7 +76,6 @@ function ProductDetail() {
   const stockChangeHandler = (e) => {
     setStock(e.target.value);
   };
-  console.log("id of page is ", productId);
 
   return (
     <main className="product-details-page">
@@ -86,7 +85,6 @@ function ProductDetail() {
             {...zoomProps}
             img={`http://localhost:3004${productDetail.image}`}
           />
-          {/* <img src={`http://localhost:3004${productDetail.image}`} /> */}
         </Grid>
         <Grid item sm={6} xs={12} className="product-information">
           <div>

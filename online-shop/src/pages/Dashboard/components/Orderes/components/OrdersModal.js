@@ -4,7 +4,6 @@ import { Button } from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,7 +13,6 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { patchOrder } from "../../../../../api/Api";
 import { useDispatch } from "react-redux";
@@ -72,7 +70,6 @@ export function OrdersModal(props) {
     formData.append("deliveryStatus", "true");
     formData.append("deliveryTime", nowDate);
     patchOrder(formData, props.id).then(() => {
-      console.log("all is OK");
       props.onChange(deliveryFlag);
       dispatch(loaderAction.hideLoader());
       setDeliveryFlag(!deliveryFlag);

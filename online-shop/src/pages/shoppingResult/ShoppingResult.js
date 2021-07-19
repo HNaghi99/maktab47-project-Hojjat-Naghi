@@ -23,10 +23,8 @@ function ShoppingResult(props) {
   const tel = useSelector((state) => state.customer.tel);
   const deliveryRequestTime = useSelector((state) => state.customer.date);
   const orderTime = useSelector((state) => state.customer.orderTime);
-  console.log("cart is ", JSON.stringify(cart));
   useEffect(() => {
     if (shoppingStatus === "successful") {
-      console.log("family is:", family);
       const formData = new FormData();
       formData.append("name", `${name} ${family}`);
       formData.append("address", address);
@@ -49,16 +47,10 @@ function ShoppingResult(props) {
             const formData = new FormData();
             formData.append("stock", stockOfProduct - product.number);
             await patchProduct(formData, product.id);
-            console.log("products are changed");
           }
         });
-        console.log("cart content is:", cart);
         dispatch(cartAction.clearCart());
         dispatch(loaderAction.hideLoader());
-        console.log(
-          "your order is successfully",
-          new Date().toLocaleDateString("fa-IR")
-        );
       });
     }
   }, []);

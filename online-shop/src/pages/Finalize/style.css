@@ -16,7 +16,6 @@ div.tether-element {
 }
 textarea {
   height: 70px !important;
-  overflow-y: scroll !important;
   overflow-x: hidden !important;
   width: 300px !important;
   resize: none !important;

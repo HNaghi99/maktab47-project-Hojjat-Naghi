@@ -10,7 +10,6 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
-import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useSelector } from "react-redux";
@@ -20,22 +19,18 @@ const columns = [
   {
     id: "product",
     label: "کالا",
-    // minWidth: 170,
   },
   {
     id: "price",
     label: "قیمت",
-    // minWidth: 100,
   },
   {
     id: "stock",
     label: "تعداد",
-    // minWidth: 170,
   },
   {
     id: "buttons",
     label: "",
-    // minWidth: 170,
   },
 ];
 const useStyles = makeStyles((theme) => ({
@@ -53,10 +48,7 @@ function Cart(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const cartProducts = useSelector((state) => state.cart.cartProductsArray);
-  console.log("CART IS:", cartProducts, JSON.stringify(cartProducts));
   const total = useSelector((state) => state.cart.total);
-  //   const [cartProducts, setCartProducts] = React.useState(fakeCart);
-  //   const [total, setTotal] = React.useState(0);
   const deleteProductHandler = (productData) => {
     dispatch(cartAction.deleteFromCart(productData));
   };

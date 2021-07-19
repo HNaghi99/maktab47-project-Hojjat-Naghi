@@ -3,8 +3,6 @@ import "./style.css";
 import { getProducts } from "../../../../api/Api";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
 import SaveIcon from "@material-ui/icons/Save";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -16,7 +14,6 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { Text } from "./components/Text";
 import { patchProduct } from "../../../../api/Api";
-import { instanceOf, string } from "prop-types";
 import joi from "joi";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
@@ -79,11 +76,9 @@ export function StockComponent() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [products, setProducts] = React.useState([]);
   const [modified, setModified] = React.useState([]);
-  // const [obj, setObj] = React.useState({});
   const [flag, setFlag] = React.useState(true);
   React.useEffect(() => {
     async function dataProvider() {
-      console.log(getProducts);
       return getProducts();
     }
     const data = dataProvider();
@@ -97,13 +92,10 @@ export function StockComponent() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  //convert English number to persian
   const e2p = (s) => s.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
   const saveHandler = () => {
     let changedProductsId = modified;
-    //filter same id
     changedProductsId = [...new Set(changedProductsId)];
-    //
     changedProductsId.forEach((id) => {
       const formData = new FormData();
       const changedProperties = products.find((product) => product.id === id);

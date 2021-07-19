@@ -5,9 +5,7 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
@@ -169,7 +167,6 @@ export function Edit(props) {
                 className={classes.input}
                 id="icon-button-file"
                 type="file"
-                // value={image}
                 onChange={imageHandler}
               />
               <label htmlFor="icon-button-file">
@@ -215,11 +212,7 @@ export function Edit(props) {
             />
           </DialogContent>
           <DialogActions className="MuiGrid-justify-xs-center">
-            <Button
-              // onClick={handleCloseDeleteDialog}
-              className="add"
-              type="submit"
-            >
+            <Button className="add" type="submit">
               ذخیره
             </Button>
           </DialogActions>

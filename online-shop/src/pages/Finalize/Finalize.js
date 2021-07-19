@@ -1,6 +1,5 @@
 import "./style.css";
 import { InputField } from "../../components/InputField";
-import { TextareaAutosize } from "@material-ui/core";
 import { useState } from "react";
 import { Grid } from "@material-ui/core";
 import momentJalaali from "moment-jalaali";
@@ -162,7 +161,6 @@ function FinalizeElements(props) {
     </main>
   );
 }
-// export { Finalize };
 export function Finalize(props) {
   return (
     <SnackbarProvider
@@ -172,9 +170,7 @@ export function Finalize(props) {
       }}
       TransitionComponent={Slide}
     >
-      <FinalizeElements
-      // onSelect={props.onSelect}
-      />
+      <FinalizeElements />
     </SnackbarProvider>
   );
 }

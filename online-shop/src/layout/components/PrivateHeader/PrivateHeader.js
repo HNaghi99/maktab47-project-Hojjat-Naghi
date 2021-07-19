@@ -65,12 +65,7 @@ export default function PrivateHeader() {
               md={6}
               style={{ margin: "auto", marginBottom: "14px" }}
             >
-              <Box
-                className={"tabs"}
-                // display="flex"
-                // alignItems="center"
-                // padding="26px 0"
-              >
+              <Box className={"tabs"}>
                 <AppBar position="static">
                   <Tabs
                     value={value}

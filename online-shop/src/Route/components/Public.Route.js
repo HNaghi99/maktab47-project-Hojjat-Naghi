@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Main } from "../../layout/Main";
-import { useParams } from "react-router";
 const PublicRoute = ({ component: Component, restricted, ...rest }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const href = window.location.href;

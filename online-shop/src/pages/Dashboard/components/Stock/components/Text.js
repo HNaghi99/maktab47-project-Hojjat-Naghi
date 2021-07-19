@@ -1,5 +1,4 @@
 import * as React from "react";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import { getProductWithId } from "../../../../../api/Api";

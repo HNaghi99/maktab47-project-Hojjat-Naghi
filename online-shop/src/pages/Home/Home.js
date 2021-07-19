@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, BrowserRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -11,9 +11,6 @@ import { loaderAction } from "../../redux/reducer/loadReducer";
 function Home(props) {
   const dispatch = useDispatch();
   const [groups, setGroups] = React.useState([]);
-  let globalArray = [];
-  let groupArray = [];
-  let previousHeader;
   var settings = {
     infinite: true,
     speed: 500,
@@ -80,12 +77,9 @@ function Home(props) {
           }
           arrayOfGroups.push(groupObject);
           groupObject = {};
-          console.log("GLOBAL ARRAY IS:", arrayOfGroups);
         }
       }
-      // await setTimeout(() => {
       dispatch(loaderAction.hideLoader());
-      // }, 3000);
       setGroups(arrayOfGroups);
     });
   }, []);

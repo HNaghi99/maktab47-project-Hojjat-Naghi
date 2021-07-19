@@ -1,7 +1,5 @@
 import React from "react";
 import { Button } from "@material-ui/core";
-import Tooltip from "@material-ui/core/Tooltip";
-import Fade from "@material-ui/core/Fade";
 import AddIcon from "@material-ui/icons/Add";
 import { makeStyles } from "@material-ui/core/styles";
 import { postProduct } from "../../../../../api/Api";
@@ -9,7 +7,6 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
@@ -118,11 +115,9 @@ export function Add(props) {
   const imageHandler = (e) => {
     const file = e.target.files[0];
     setImage(file);
-    console.log("type of", typeof file, file);
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    // props.onSelect(flag);
     let formData = new FormData();
     let addedData = schema.validate({
       name: name,
@@ -179,16 +174,9 @@ export function Add(props) {
         <form onSubmit={submitHandler}>
           <DialogTitle id="edit-apartment">
             <span>افزودن کالا</span>
-            {/* <Tooltip
-              TransitionComponent={Fade}
-              TransitionProps={{ timeout: 600 }}
-              title="یستن"
-              placement="left"
-            > */}
             <IconButton className="cancel-icon">
               <CancelIcon onClick={handleCloseDeleteDialog} />
             </IconButton>
-            {/* </Tooltip> */}
           </DialogTitle>
           <DialogContent>
             <div className="image-upload">
@@ -200,7 +188,6 @@ export function Add(props) {
                 className={classes.input}
                 id="icon-button-file"
                 type="file"
-                // value={image}
                 onChange={imageHandler}
               />
               <label htmlFor="icon-button-file">
@@ -225,26 +212,6 @@ export function Add(props) {
               placeholder="توضیحات..."
               textAlignment="right"
               textDirectionality="RTL"
-              // toolbar={{
-              //   options: ["inline", "list", "history", "image", "emoji"],
-              //   inline: {
-              //     options: ["bold", "italic", "underline", "strikethrough"],
-              //     bold: { className: "bordered-option-classname" },
-              //     italic: { className: "bordered-option-classname" },
-              //     underline: { className: "bordered-option-classname" },
-              //     strikethrough: { className: "bordered-option-classname" },
-              //     code: { className: "bordered-option-classname" },
-              //   },
-              //   list: {
-              //     options: ["unordered", "ordered"],
-              //     unordered: { className: "bordered-option-classname" },
-              //     ordered: { className: "bordered-option-classname" },
-              //   },
-              //   image: {
-              //     urlEnabled: true,
-              //     uploadEnabled: true,
-              //   },
-              // }}
             />
           </DialogContent>
           <DialogActions className="MuiGrid-justify-xs-center">

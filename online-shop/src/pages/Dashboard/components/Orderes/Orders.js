@@ -3,10 +3,6 @@ import "./style.css";
 import RadioButton from "./components/Radio";
 import { getOrders } from "../../../../api/Api";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import DeleteIcon from "@material-ui/icons/Delete";
-import EditIcon from "@material-ui/icons/Edit";
-import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -16,7 +12,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { OrdersModal } from "./components/OrdersModal";
-import { instanceOf, string } from "prop-types";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
 const columns = [
@@ -94,17 +89,13 @@ export function OrdersElement() {
           (order) => order.deliveryStatus === "true"
         );
         setOrders(filteredOrders);
-        console.log("orders are:", orders);
       } else {
         const filteredOrders = orders.filter(
           (order) => order.deliveryStatus === "false"
         );
         setOrders(filteredOrders);
-        console.log("orders are:waiting", orders);
       }
-      // setOrders(orders)
     });
-    console.log("checkState is :", checkState);
   }, [checkState, deliveryFlag]);
   const e2p = (s) => s.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
   const handleChangePage = (event, newPage) => {

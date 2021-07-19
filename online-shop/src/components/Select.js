@@ -1,10 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import { getGroups } from "../api/Api";
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -32,9 +30,7 @@ export function SelectItem(props) {
   const handleCountryChange = (e) => {
     const head = e.target.value;
     props.head(head);
-    console.log("obj is:", e.target.value);
     const objectList = group[findIndex(head)][head];
-    console.log("OBJECT list is:", objectList);
     setHeader(head);
     setSubgroupList(objectList);
     setSubgroup(null);
@@ -56,7 +52,6 @@ export function SelectItem(props) {
         const header = groups[i].header;
         const index = groups.findIndex((group) => group.header === header);
         if (i === index) {
-          console.log("header is:", header, groups);
           groupObject[`${header}`] = [];
           for (let j = 0; j < groups.length; j++) {
             if (groups[j].header === header) {
@@ -65,7 +60,6 @@ export function SelectItem(props) {
           }
           arrayOfGroups.push(groupObject);
           groupObject = {};
-          console.log("GLOBAL ARRAY IS:", arrayOfGroups);
         }
       }
       setGroups(arrayOfGroups);

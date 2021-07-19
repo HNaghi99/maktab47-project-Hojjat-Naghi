@@ -1,11 +1,10 @@
 import React from "react";
-import { useParams, link } from "react-router";
+import { useParams } from "react-router";
 import { getProductsofGroup, getGroups } from "../../api/Api";
 import Grid from "@material-ui/core/Grid";
 import style from "./style.css";
 import { Link } from "react-router-dom";
 import { Box } from "@material-ui/core";
-//add
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -14,23 +13,19 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
 import { loaderAction } from "../../redux/reducer/loadReducer";
-//add
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
   },
 }));
-//
 function List(props) {
   const dispatch = useDispatch();
-  //add
   const [expanded, setExpanded] = React.useState(false);
   const classes = useStyles();
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-  //
   const { groupName } = useParams();
   const [products, setProducts] = React.useState([]);
   const [groups, setGroups] = React.useState([]);
@@ -73,14 +68,12 @@ function List(props) {
           }
           arrayOfGroups.push(groupObject);
           groupObject = {};
-          console.log("GLOBAL ARRAY IS:", arrayOfGroups);
         }
       }
       setGroups(arrayOfGroups);
     });
     const products = dataProvider();
     products.then((products) => {
-      console.log("products are:", products, groupName);
       setProducts(products);
       dispatch(loaderAction.hideLoader());
     });
