@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Box from "@material-ui/core/Box";
 import logo from "../../../asset/image/logo.png";
 import { withStyles } from "@material-ui/core/styles";
@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Badge from "@material-ui/core/Badge";
+import styles from "./style.module.css";
 const StyledBadge = withStyles((theme) => ({
   badge: {
     right: -3,
@@ -56,9 +57,7 @@ export default function PublicHeader(props) {
                 component={Link}
                 exact
                 to="/dashboard"
-                color="yellow"
-                fontWeight="fontWeightBold"
-                style={{ textDecoration: "none" }}
+                className={styles.dashboardLink}
                 mx={"15px"}
               >
                 مدیریت

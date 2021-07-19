@@ -1,0 +1,9 @@
+.submitBtn {
+  text-decoration: none;
+  font-weight: bold;
+  color: yellow;
+  transition: 0.4s ease-out;
+}
+.submitBtn:hover {
+  color: rgba(255, 255, 0, 0.692);
+}

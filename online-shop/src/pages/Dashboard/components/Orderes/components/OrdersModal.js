@@ -100,7 +100,9 @@ export function OrdersModal(props) {
             <div className="customer-field">
               نام مشتری:{props.orderData.name}
             </div>
-            <div className="customer-field">آدرس:{props.orderData.address}</div>
+            <address className="customer-field">
+              آدرس:{props.orderData.address}
+            </address>
             <div className="customer-field">تلفن:{props.orderData.tel}</div>
             <div className="customer-field">
               زمان تحویل درخواست شده:{e2p(props.orderData.deliveryRequestTime)}

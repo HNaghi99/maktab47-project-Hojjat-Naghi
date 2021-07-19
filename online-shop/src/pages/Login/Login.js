@@ -9,6 +9,7 @@ import joi from "joi";
 import { authAction } from "../../redux/reducer/authReducer";
 import { useDispatch } from "react-redux";
 import RTLComponent from "../../Theme/RTLComponent";
+import styles from "./style.module.css";
 function LoginComponent() {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const dispatch = useDispatch();
@@ -89,12 +90,8 @@ function LoginComponent() {
               component={Link}
               exact
               to="/"
+              className={styles.submitBtn}
               alignSelf="flex-end"
-              style={{
-                textDecoration: "none",
-                color: "yellow",
-                fontWeight: "bold",
-              }}
             >
               بازگشت به سایت
             </Box>

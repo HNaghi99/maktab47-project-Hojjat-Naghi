@@ -24,6 +24,7 @@ aside {
 .group-link {
   text-decoration: none;
   color: rgb(60, 95, 168);
+  transition: 0.4s ease-out;
 }
 .group-link:hover {
   color: rgb(17, 39, 87);
@@ -39,6 +40,11 @@ aside {
   padding: 5px 2px;
   margin: 3px;
   height: 125px;
+  transition: 0.4s ease-out;
+}
+.card:hover {
+  transform: translateY(2px);
+  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
 }
 .card img {
   width: 100px;

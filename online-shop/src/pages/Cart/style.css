@@ -28,6 +28,7 @@ a.cart-finalize-link {
   font-weight: bold;
   padding: 10px;
   border-radius: 7px;
+  transition: 0.4s ease-out;
 }
 a.cart-finalize-link:hover {
   background-color: rgb(89, 255, 47);

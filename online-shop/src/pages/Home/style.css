@@ -34,6 +34,7 @@ img {
   color: rgb(16, 215, 241);
   font-size: x-large;
   padding-right: 8px;
+  transition: 0.4s ease-out;
 }
 .groups-link:hover {
   color: rgb(47, 151, 165);

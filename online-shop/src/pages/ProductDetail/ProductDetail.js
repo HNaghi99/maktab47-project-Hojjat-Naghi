@@ -9,9 +9,9 @@ import "./style.css";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import { Button } from "@material-ui/core";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import ReactImageZoom from "react-image-zoom";
 import { cartAction } from "../../redux/reducer/cartReducer";
 import { useDispatch } from "react-redux";
+import ReactImageMagnify from "react-image-magnify";
 import draftToHtml from "draftjs-to-html";
 import { convertToRaw } from "draft-js";
 import ReactHtmlParser from "react-html-parser";
@@ -81,10 +81,25 @@ function ProductDetail() {
     <main className="product-details-page">
       <Grid container>
         <Grid item sm={6} xs={12} className="image-of-product">
-          <ReactImageZoom
-            {...zoomProps}
-            img={`http://localhost:3004${productDetail.image}`}
-          />
+          <div dir="ltr" style={{ width: "300px" }}>
+            <ReactImageMagnify
+              enlargedImagePosition="over"
+              {...{
+                smallImage: {
+                  alt: "Product-Image",
+                  isFluidWidth: true,
+                  sizes:
+                    "(min-width: 800px) 33.5vw, (min-width: 415px) 50vw, 100vw",
+                  src: `http://localhost:3004${productDetail.image}`,
+                },
+                largeImage: {
+                  src: `http://localhost:3004${productDetail.image}`,
+                  width: 750,
+                  height: 750,
+                },
+              }}
+            />
+          </div>
         </Grid>
         <Grid item sm={6} xs={12} className="product-information">
           <div>
@@ -129,6 +144,7 @@ function ProductDetail() {
             </div>
           </div>
         </Grid>
+
         <Grid item sm={12}>
           {/* {[ReactHtmlParser(JSON.parse(productDetail.description))]} */}
         </Grid>

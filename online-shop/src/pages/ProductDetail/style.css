@@ -2,6 +2,7 @@
   color: rgb(21, 199, 223);
   text-decoration: none;
   font-weight: bold;
+  transition: 0.4s ease-out;
 }
 .bread-crumb-link:hover {
   color: rgba(64, 227, 249, 1);
@@ -24,6 +25,7 @@ button.add-to-cart-btn {
   color: white;
   font-weight: bold;
   padding: 3px;
+  transition: 0.4s ease-out;
 }
 button.add-to-cart-btn:hover {
   background-color: rgb(89, 255, 47);
@@ -32,13 +34,14 @@ button.add-to-cart-btn:hover {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 10px;
   /* align-items: center; */
 }
 .image-of-product {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
+  align-items: center;
 }
 .image-of-product > img {
   width: 300px;
