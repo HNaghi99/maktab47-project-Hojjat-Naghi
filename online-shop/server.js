@@ -110,14 +110,6 @@ server.use((req, res, next) => {
   next();
 });
 
-//added
-server.use("/db", middlewares, router);
-server.use(express.static(path.join(__dirname, "build")));
-
-server.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
-//
 // app.use("/", router);
 app.listen(3001, () => {
   console.log("Express Server is running at http://localhost:3001/");
