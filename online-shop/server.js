@@ -18,11 +18,6 @@ app.get("/", function (req, res) {
     }
   );
 });
-// app.get("/", function (req, res) {
-//   res.sendFile(path.join(__dirname + "/payment-page/index.html"));
-
-//   //__dirname : It will resolve to your project folder.
-// });
 
 // Set default middlewares (logger, static, cors and no-cache)
 server.use(middlewares);
@@ -114,6 +109,15 @@ server.use((req, res, next) => {
   // Continue to JSON Server router
   next();
 });
+
+//added
+server.use("/db", middlewares, router);
+server.use(express.static(path.join(__dirname, "build")));
+
+server.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+//
 // app.use("/", router);
 app.listen(3001, () => {
   console.log("Express Server is running at http://localhost:3001/");
