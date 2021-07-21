@@ -13,6 +13,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
 import { loaderAction } from "../../redux/reducer/loadReducer";
+import { useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
@@ -21,8 +22,12 @@ const useStyles = makeStyles((theme) => ({
 function List(props) {
   const dispatch = useDispatch();
   const [expanded, setExpanded] = React.useState(false);
+  const [counter, setCounter] = React.useState(0);
+  const loadStatus = useSelector((state) => state.loader.loadStatus);
+  if (counter === 0) dispatch(loaderAction.displayLoader());
+  const loadClass = loadStatus ? `hiding` : `showing`;
+  const ContentClasses = `${loadClass}`;
   const classes = useStyles();
-
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
@@ -50,7 +55,7 @@ function List(props) {
     const groupProvider = async () => {
       return getGroups();
     };
-    dispatch(loaderAction.displayLoader());
+    // dispatch(loaderAction.displayLoader());
     const groups = groupProvider();
     groups.then((groups) => {
       const arrayOfGroups = [];
@@ -73,13 +78,25 @@ function List(props) {
       setGroups(arrayOfGroups);
     });
     const products = dataProvider();
-    products.then((products) => {
-      setProducts(products);
+    products.then(async (products) => {
+      var filter = {
+        stock: "0",
+        price: "0",
+      };
+      const arrayOfProducts = Object.values(products);
+      const filteredProducts = arrayOfProducts.filter((product) => {
+        for (var key in filter) {
+          if (product[key] === filter[key]) return false;
+          else return product;
+        }
+      });
+      setProducts(filteredProducts);
+      setCounter(counter + 1);
       dispatch(loaderAction.hideLoader());
     });
   }, [groupName]);
   return (
-    <Grid container>
+    <Grid container className={ContentClasses}>
       <Grid item md={2} sm={3} xs={4} className="side-bar">
         <aside>
           {groups.map((group, index) => {
@@ -146,6 +163,7 @@ function List(props) {
                   <Box
                     component={Link}
                     to={`/product-details/${product.id}`}
+                    title={`${product.name}`}
                     className="card-container"
                   >
                     <div className="card">

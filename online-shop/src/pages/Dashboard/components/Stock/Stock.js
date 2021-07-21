@@ -53,10 +53,6 @@ export function StockComponent() {
       message,
       { variant },
       {
-        anchorOrigin: {
-          vertical: "bottom",
-          horizontal: "right",
-        },
         TransitionComponent: Slide,
       }
     );
@@ -208,6 +204,9 @@ export function StockComponent() {
     </>
   );
 }
+function TransitionRight(props) {
+  return <Slide {...props} direction="left" />;
+}
 export function Stock(props) {
   return (
     <SnackbarProvider
@@ -215,7 +214,7 @@ export function Stock(props) {
         vertical: "bottom",
         horizontal: "left",
       }}
-      TransitionComponent={Slide}
+      TransitionComponent={TransitionRight}
     >
       <StockComponent />
     </SnackbarProvider>

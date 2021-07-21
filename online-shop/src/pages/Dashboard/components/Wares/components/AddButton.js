@@ -22,6 +22,7 @@ import Slide from "@material-ui/core/Slide";
 import draftToHtml from "draftjs-to-html";
 import { stateToHTML } from "draft-js-export-html";
 import { loaderAction } from "../../../../../redux/reducer/loadReducer";
+import { DefaultImage_URl } from "../../../../../configs/Variables";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -40,10 +41,6 @@ export function Add(props) {
       message,
       { variant },
       {
-        anchorOrigin: {
-          vertical: "bottom",
-          horizontal: "right",
-        },
         TransitionComponent: Slide,
       }
     );
@@ -64,16 +61,16 @@ export function Add(props) {
       .min(2)
       .required()
       .error(new Error("وارد کردن زیر گروه محصول الزامی است")),
-    description: joi
-      .optional()
-      // .string()
-      // .min(2)
-      // .required()
-      .error(new Error("وارد کردن جزئیات محصول الزامی است")),
+    // description: joi
+    //   .optional()
+    //   // .string()
+    //   // .min(2)
+    //   // .required()
+    //   .error(new Error("وارد کردن جزئیات محصول الزامی است")),
     image: joi
-      .object({})
-      .required()
-      .error(new Error("بارگذاری تصویر محصول الزامی است")),
+      .string()
+      .regex(new RegExp("^.*.(jpg)$"))
+      .error(new Error("تصویر باید به فرمت jpg باشد")),
   });
   const [editorState, setEditor] = React.useState(EditorState.createEmpty());
   const classes = useStyles();
@@ -82,7 +79,7 @@ export function Add(props) {
   const [group, setGroup] = React.useState("");
   const [description, setDes] = React.useState("");
   const [openDeleteDialog, setOpenDelete] = React.useState(false);
-  const [image, setImage] = React.useState(null);
+  const [image, setImage] = React.useState(DefaultImage_URl);
   const [flag, setFlag] = React.useState(5);
   const styleMap = {
     STRIKETHROUGH: {
@@ -123,8 +120,8 @@ export function Add(props) {
       name: name,
       header: head,
       group: group,
-      description: description,
-      image: image,
+      // description: description,
+      image: image.name,
     });
     try {
       if (addedData.error) {
@@ -134,7 +131,7 @@ export function Add(props) {
         formData.append("name", name);
         formData.append("header", head);
         formData.append("group", group);
-        formData.append("description", description);
+        // formData.append("description", description);
         formData.append("image", image);
         formData.append("stock", "0");
         formData.append("price", "0");
@@ -224,6 +221,9 @@ export function Add(props) {
     </>
   );
 }
+function TransitionRight(props) {
+  return <Slide {...props} direction="left" />;
+}
 export function AddButton(props) {
   return (
     <SnackbarProvider
@@ -231,7 +231,7 @@ export function AddButton(props) {
         vertical: "bottom",
         horizontal: "left",
       }}
-      TransitionComponent={Slide}
+      TransitionComponent={TransitionRight}
     >
       <Add onSelect={props.onSelect} />
     </SnackbarProvider>

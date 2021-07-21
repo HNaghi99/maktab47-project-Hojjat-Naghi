@@ -17,6 +17,8 @@ import { useDispatch } from "react-redux";
 import { loaderAction } from "../../../../redux/reducer/loadReducer";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
+import { useSelector } from "react-redux";
+import { authAction } from "../../../../redux/reducer/authReducer";
 
 const columns = [
   { id: "picture", label: "تصویر", minWidth: 170 },
@@ -43,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
 }));
-export function WaresItem() {
+export function WaresItem(props) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
@@ -58,14 +60,17 @@ export function WaresItem() {
       message,
       { variant },
       {
-        anchorOrigin: {
-          vertical: "bottom",
-          horizontal: "right",
-        },
         TransitionComponent: Slide,
       }
     );
   };
+  const messageShowingStatus = useSelector(
+    (state) => state.auth.MessageShowingStatus
+  );
+  if (messageShowingStatus) {
+    handleClickVariant("با موفقیت وارد شدید", "success");
+    dispatch(authAction.hide());
+  }
   React.useEffect(() => {
     const dataProvider = async () => {
       return getProducts();
@@ -95,7 +100,10 @@ export function WaresItem() {
   };
   const addHandler = (id) => {
     setAddProduct([...addedProduct, id]);
-    handleClickVariant("محصول مورد نظر اضافه شد", "success");
+    handleClickVariant(
+      "محصول مورد نظر اضافه شد برای نمایش محصول در تب موجودی و قیمت ها قیمت و تعداد آن را تعیین کنید",
+      "success"
+    );
   };
   return (
     <>
@@ -172,7 +180,9 @@ export function WaresItem() {
     </>
   );
 }
-
+function TransitionRight(props) {
+  return <Slide {...props} direction="left" />;
+}
 export function Wares(props) {
   return (
     <SnackbarProvider
@@ -180,7 +190,7 @@ export function Wares(props) {
         vertical: "bottom",
         horizontal: "left",
       }}
-      TransitionComponent={Slide}
+      TransitionComponent={TransitionRight}
     >
       <WaresItem onSelect={props.onSelect} />
     </SnackbarProvider>

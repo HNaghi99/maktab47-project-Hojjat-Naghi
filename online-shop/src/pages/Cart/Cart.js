@@ -15,6 +15,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { useSelector } from "react-redux";
 import { cartAction } from "../../redux/reducer/cartReducer";
 import { useDispatch } from "react-redux";
+import { loaderAction } from "../../redux/reducer/loadReducer";
 const columns = [
   {
     id: "product",
@@ -45,8 +46,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 function Cart(props) {
+  const loadStatus = useSelector((state) => state.loader.loadStatus);
   const classes = useStyles();
   const dispatch = useDispatch();
+  dispatch(loaderAction.displayLoader());
   const cartProducts = useSelector((state) => state.cart.cartProductsArray);
   const total = useSelector((state) => state.cart.total);
   const deleteProductHandler = (productData) => {
@@ -65,8 +68,9 @@ function Cart(props) {
     }
     return m;
   }
+  dispatch(loaderAction.hideLoader());
   return (
-    <main>
+    <main className={loadStatus ? `hiding` : `showing`}>
       <div className="cart-title-container">
         <h2 className="cart-title">سبد خرید</h2>
       </div>

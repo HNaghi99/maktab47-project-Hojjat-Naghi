@@ -40,10 +40,6 @@ export function Edit(props) {
       message,
       { variant },
       {
-        anchorOrigin: {
-          vertical: "bottom",
-          horizontal: "right",
-        },
         TransitionComponent: Slide,
       }
     );
@@ -53,18 +49,16 @@ export function Edit(props) {
       .string()
       .min(2)
       .error(new Error("نام محصول حداقل بایستی دو حرفی باشد")),
-    header: joi
+    header: joi.string().error(new Error("وارد کردن گروه محصول الزامی است")),
+    group: joi.string().error(new Error("وارد کردن زیر گروه محصول الزامی است")),
+    // description: ,
+    //   .string()
+    //   .optional()
+    //   .error(new Error("توضیحات محصول بایستی حداقل ۵ حرفی باشد")),
+    image: joi
       .string()
-      .required()
-      .error(new Error("وارد کردن گروه محصول الزامی است")),
-    group: joi
-      .string()
-      .required()
-      .error(new Error("وارد کردن زیر گروه محصول الزامی است")),
-    description: joi
-      .string()
-      .min(5)
-      .error(new Error("توضیحات محصول بایستی حداقل ۵ حرفی باشد")),
+      .regex(new RegExp("^.*.(jpg)$"))
+      .error(new Error("تصویر باید به فرمت jpg باشد")),
   });
   const [editorState, setEditor] = React.useState(EditorState.createEmpty());
   const classes = useStyles();
@@ -109,28 +103,38 @@ export function Edit(props) {
       name: name,
       header: head,
       group: group,
-      description: editorState,
+      image: image.name,
+      // description: editorState,
     });
     try {
       if (editedData.error) throw new Error(editedData.error.message);
       else {
-        dispatch(loaderAction.displayLoader());
-        formData.append("name", name);
-        formData.append("header", head);
-        formData.append("group", group);
-        formData.append("description", description);
-        formData.append("image", image);
-        patchProduct(formData, props.product.id).then(() => {
-          handleCloseDeleteDialog();
-          setName("");
-          setHead("");
-          setGroup("");
-          setDes("");
-          setImage(null);
-          setFlag(flag + 1);
-          dispatch(loaderAction.hideLoader());
-          props.onSelect(flag + 1);
-        });
+        if (
+          name === props.product.name &&
+          head === props.product.header &&
+          group === props.product.group &&
+          image === props.product.image
+        )
+          throw new Error("تغییری برای اعمال وجود ندارد");
+        else {
+          dispatch(loaderAction.displayLoader());
+          formData.append("name", name);
+          formData.append("header", head);
+          formData.append("group", group);
+          // formData.append("description", description);
+          formData.append("image", image);
+          patchProduct(formData, props.product.id).then(() => {
+            handleCloseDeleteDialog();
+            setName("");
+            setHead("");
+            setGroup("");
+            setDes("");
+            setImage(null);
+            setFlag(flag + 1);
+            dispatch(loaderAction.hideLoader());
+            props.onSelect(flag + 1);
+          });
+        }
       }
     } catch (error) {
       handleClickVariant(error.message, "error");
@@ -221,6 +225,9 @@ export function Edit(props) {
     </>
   );
 }
+function TransitionRight(props) {
+  return <Slide {...props} direction="left" />;
+}
 export function EditButton(props) {
   return (
     <SnackbarProvider
@@ -228,7 +235,7 @@ export function EditButton(props) {
         vertical: "bottom",
         horizontal: "left",
       }}
-      TransitionComponent={Slide}
+      TransitionComponent={TransitionRight}
     >
       <Edit onSelect={props.onSelect} product={props.product} />
     </SnackbarProvider>

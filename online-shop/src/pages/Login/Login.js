@@ -30,10 +30,6 @@ function LoginComponent() {
       message,
       { variant },
       {
-        anchorOrigin: {
-          vertical: "bottom",
-          horizontal: "right",
-        },
         TransitionComponent: Slide,
       }
     );
@@ -53,6 +49,7 @@ function LoginComponent() {
         value.value.password === "123456"
       ) {
         dispatch(authAction.login());
+        dispatch(authAction.show());
       } else {
         throw new Error("نام کاربری و کلمه عبور وارد شده صحیح نمی باشد");
       }
@@ -106,7 +103,7 @@ export function Login() {
     <SnackbarProvider
       anchorOrigin={{
         vertical: "bottom",
-        horizontal: "left",
+        horizontal: "right",
       }}
       TransitionComponent={Slide}
     >

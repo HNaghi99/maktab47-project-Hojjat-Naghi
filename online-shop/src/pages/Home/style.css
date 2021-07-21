@@ -8,6 +8,7 @@ div.slider-item {
   margin: 5px;
 }
 .product-data {
+  width: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -18,10 +18,11 @@ const StyledBadge = withStyles((theme) => ({
   },
 }))(Badge);
 export default function PublicHeader(props) {
+  const loadStatus = useSelector((state) => state.loader.loadStatus);
   const stock = useSelector((state) => state.cart.cartProductsArray.length);
   const e2p = (s) => s.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
   return (
-    <header>
+    <header className={loadStatus ? styles.hideHeader : styles.showHeader}>
       <Box
         bgcolor="primary.main"
         color="primary.contrastText"

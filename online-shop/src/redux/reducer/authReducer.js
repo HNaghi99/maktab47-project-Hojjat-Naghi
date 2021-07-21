@@ -1,6 +1,8 @@
+import { Hidden } from "@material-ui/core";
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isAuthenticated: false,
+  MessageShowingStatus: false,
 };
 export const AuthReducer = createSlice({
   name: "auth",
@@ -8,6 +10,12 @@ export const AuthReducer = createSlice({
   reducers: {
     login(state) {
       state.isAuthenticated = true;
+    },
+    show(state) {
+      state.MessageShowingStatus = true;
+    },
+    hide(state) {
+      state.MessageShowingStatus = false;
     },
   },
 });

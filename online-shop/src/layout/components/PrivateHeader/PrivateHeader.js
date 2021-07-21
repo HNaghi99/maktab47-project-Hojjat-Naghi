@@ -11,6 +11,7 @@ import { Stock } from "../../../pages/Index";
 import { Wares } from "../../../pages/Index";
 import Grid from "@material-ui/core/Grid";
 import "./style.css";
+import { useSelector } from "react-redux";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -44,14 +45,15 @@ function a11yProps(index) {
   };
 }
 export default function PrivateHeader() {
+  const loadStatus = useSelector((state) => state.loader.loadStatus);
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  // loadStatus ? `hiding` : `showing`
   return (
     <>
-      <header>
+      <header className={loadStatus ? `hiding` : `showing`}>
         <Box bgcolor="primary.main" color="primary.contrastText">
           <Grid container>
             <Grid item xs={12} sm={5} md={3}>
@@ -111,7 +113,7 @@ export default function PrivateHeader() {
           </Grid>
         </Box>
       </header>
-      <div>
+      <div className={loadStatus ? `hiding` : `showing`}>
         <TabPanel value={value} index={0}>
           <Wares />
         </TabPanel>

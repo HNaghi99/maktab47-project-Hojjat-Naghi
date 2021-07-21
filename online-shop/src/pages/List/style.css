@@ -46,10 +46,8 @@ aside {
   transform: translateY(2px);
   box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
 }
-.card img {
-  width: 100px;
-}
 .price-and-name {
+  width: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -102,4 +100,5 @@ aside {
 }
 .group-img {
   margin-left: 5px;
+  width: 100px;
 }

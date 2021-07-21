@@ -4,3 +4,9 @@
 .private-header-title {
   padding: 5px !important;
 }
+.hiding {
+  display: none;
+}
+.showing {
+  display: block;
+}

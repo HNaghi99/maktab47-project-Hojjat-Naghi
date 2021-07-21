@@ -9,15 +9,7 @@ function Main(props) {
   return (
     <>
       <RTLComponent>
-        {props.isPublic ? (
-          <PublicHeader
-            className={loadStatus ? styles.hiding : styles.showing}
-          />
-        ) : (
-          <PrivateHeader
-            className={loadStatus ? styles.hiding : styles.showing}
-          />
-        )}
+        {props.isPublic ? <PublicHeader /> : <PrivateHeader />}
         <Loader />
         {props.children}
       </RTLComponent>

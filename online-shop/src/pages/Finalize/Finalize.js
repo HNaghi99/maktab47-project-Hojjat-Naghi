@@ -11,7 +11,7 @@ import { customerAction } from "../../redux/reducer/customReducer";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import Slide from "@material-ui/core/Slide";
 const schema = joi.object({
-  name: joi.string().min(2).error(new Error("وارد کرن نام الزامی است")),
+  name: joi.string().min(2).error(new Error("وارد کردن نام الزامی است")),
   family: joi
     .string()
     .min(2)
@@ -52,10 +52,6 @@ function FinalizeElements(props) {
       message,
       { variant },
       {
-        anchorOrigin: {
-          vertical: "bottom",
-          horizontal: "right",
-        },
         TransitionComponent: Slide,
       }
     );
@@ -99,7 +95,7 @@ function FinalizeElements(props) {
           orderTime: nowDate,
         };
         dispatch(customerAction.saveCustomerData(customerData));
-        window.location.href = "http://http://localhost:3001/";
+        window.location.href = "http://localhost:3001/";
       }
     } catch (error) {
       handleClickVariant(error.message, "error");
@@ -161,6 +157,9 @@ function FinalizeElements(props) {
     </main>
   );
 }
+function TransitionRight(props) {
+  return <Slide {...props} direction="left" />;
+}
 export function Finalize(props) {
   return (
     <SnackbarProvider
@@ -168,7 +167,7 @@ export function Finalize(props) {
         vertical: "bottom",
         horizontal: "left",
       }}
-      TransitionComponent={Slide}
+      TransitionComponent={TransitionRight}
     >
       <FinalizeElements />
     </SnackbarProvider>

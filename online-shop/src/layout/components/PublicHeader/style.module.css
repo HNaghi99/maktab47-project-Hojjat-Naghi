@@ -7,3 +7,9 @@
 .dashboardLink:hover {
   color: rgba(255, 255, 0, 0.739);
 }
+.hideHeader {
+  display: none;
+}
+.showHeader {
+  display: block;
+}

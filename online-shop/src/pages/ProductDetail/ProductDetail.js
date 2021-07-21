@@ -17,14 +17,21 @@ import { convertToRaw } from "draft-js";
 import ReactHtmlParser from "react-html-parser";
 import { useSelector } from "react-redux";
 import { loaderAction } from "../../redux/reducer/loadReducer";
-function ProductDetail() {
+import { SnackbarProvider, useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
+function ProductDetailElement() {
   const { productId } = useParams();
   const dispatch = useDispatch();
+  const [counter, setCounter] = React.useState(0);
+  const loadStatus = useSelector((state) => state.loader.loadStatus);
   const cart = useSelector((state) => state.cart.cartProductsArray);
   const [productDetail, setProductDetail] = React.useState({
     price: "10000",
     description: "[]",
   });
+  if (counter === 0) dispatch(loaderAction.displayLoader());
+  const loadClass = loadStatus ? `hiding` : `showing`;
+  const ContentClasses = `product-details-page ${loadClass}`;
   const [stock, setStock] = React.useState(1);
   const zoomProps = {
     width: 250,
@@ -32,14 +39,24 @@ function ProductDetail() {
     zoomWidth: 300,
     zoomPosition: "original",
   };
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const handleClickVariant = (message, variant) => {
+    enqueueSnackbar(
+      message,
+      { variant },
+      {
+        TransitionComponent: Slide,
+      }
+    );
+  };
   React.useEffect(() => {
     const productData = async () => {
       return getProductWithId(productId);
     };
     const product = productData();
-    dispatch(loaderAction.displayLoader());
     product.then((product) => {
       setProductDetail(product);
+      setCounter(counter + 1);
       dispatch(loaderAction.hideLoader());
     });
   }, [productId]);
@@ -71,6 +88,7 @@ function ProductDetail() {
       const totalStock = productInCart[0].number + addStock;
       if (productInCart[0].number + addStock <= stockOfProductInStore)
         dispatch(cartAction.addToCart(productData));
+      else handleClickVariant("تعداد محصول بیشتر از موجودی انبار است", "error");
     }
   };
   const stockChangeHandler = (e) => {
@@ -78,10 +96,18 @@ function ProductDetail() {
   };
 
   return (
-    <main className="product-details-page">
+    <main className={ContentClasses}>
       <Grid container>
         <Grid item sm={6} xs={12} className="image-of-product">
-          <div dir="ltr" style={{ width: "300px" }}>
+          <div
+            dir="ltr"
+            style={{
+              width: "300px",
+              borderRadius: "9px",
+              boxShadow:
+                "0 14px 28px rgb(247 247 247 / 25%), 0 10px 10px rgb(93 93 93 / 22%)",
+            }}
+          >
             <ReactImageMagnify
               enlargedImagePosition="over"
               {...{
@@ -152,4 +178,19 @@ function ProductDetail() {
     </main>
   );
 }
-export { ProductDetail };
+function TransitionRight(props) {
+  return <Slide {...props} direction="left" />;
+}
+export function ProductDetail(props) {
+  return (
+    <SnackbarProvider
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "left",
+      }}
+      TransitionComponent={TransitionRight}
+    >
+      <ProductDetailElement />
+    </SnackbarProvider>
+  );
+}

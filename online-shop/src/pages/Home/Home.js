@@ -8,8 +8,15 @@ import "./style.css";
 import { Box } from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { loaderAction } from "../../redux/reducer/loadReducer";
+import { useSelector } from "react-redux";
 function Home(props) {
   const dispatch = useDispatch();
+  const loadStatus = useSelector((state) => state.loader.loadStatus);
+  const [counter, setCounter] = React.useState(0);
+  if (counter === 0) dispatch(loaderAction.displayLoader());
+  const loadClass = loadStatus ? `hiding` : `showing`;
+  const ContentClasses = `slides-container ${loadClass}`;
+  console.log("COUNTER", counter);
   const [groups, setGroups] = React.useState([]);
   var settings = {
     infinite: true,
@@ -19,7 +26,7 @@ function Home(props) {
     initialSlide: 0,
     autoplay: true,
     speed: 2000,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 10000,
     responsive: [
       {
         breakpoint: 1024,
@@ -29,7 +36,7 @@ function Home(props) {
           infinite: true,
           autoplay: true,
           speed: 2000,
-          autoplaySpeed: 5000,
+          autoplaySpeed: 10000,
         },
       },
       {
@@ -40,7 +47,7 @@ function Home(props) {
           initialSlide: 2,
           autoplay: true,
           speed: 2000,
-          autoplaySpeed: 5000,
+          autoplaySpeed: 10000,
         },
       },
       {
@@ -50,7 +57,7 @@ function Home(props) {
           slidesToScroll: 1,
           autoplay: true,
           speed: 2000,
-          autoplaySpeed: 5000,
+          autoplaySpeed: 10000,
         },
       },
     ],
@@ -60,27 +67,41 @@ function Home(props) {
       return getProducts();
     };
     const data = dataProvider();
-    dispatch(loaderAction.displayLoader());
+    // dispatch(loaderAction.displayLoader());
     data.then(async (groups) => {
+      var filter = {
+        stock: "0",
+        price: "0",
+      };
+      const arrayOfProducts = Object.values(groups);
+      const filteredProducts = arrayOfProducts.filter((product) => {
+        for (var key in filter) {
+          if (product[key] === filter[key]) return false;
+          else return product;
+        }
+      });
       const arrayOfGroups = [];
       let groupObject = {};
-      for (let i = 0; i < groups.length; i++) {
-        const header = groups[i].header;
-        const index = groups.findIndex((group) => group.header === header);
+      for (let i = 0; i < filteredProducts.length; i++) {
+        const header = filteredProducts[i].header;
+        const index = filteredProducts.findIndex(
+          (group) => group.header === header
+        );
         if (i === index) {
-          console.log("header is:", header, groups);
+          console.log("header is:", header, filteredProducts);
           groupObject[`${header}`] = [];
-          for (let j = 0; j < groups.length; j++) {
-            if (groups[j].header === header) {
-              groupObject[`${header}`].push(groups[j]);
+          for (let j = 0; j < filteredProducts.length; j++) {
+            if (filteredProducts[j].header === header) {
+              groupObject[`${header}`].push(filteredProducts[j]);
             }
           }
           arrayOfGroups.push(groupObject);
           groupObject = {};
         }
       }
-      dispatch(loaderAction.hideLoader());
       setGroups(arrayOfGroups);
+      setCounter(counter + 1);
+      dispatch(loaderAction.hideLoader());
     });
   }, []);
   const e2p = (s) => s.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
@@ -97,7 +118,7 @@ function Home(props) {
     return m;
   }
   return (
-    <div className="slides-container">
+    <div className={ContentClasses}>
       {groups.map((group) => {
         return (
           <>
@@ -125,6 +146,7 @@ function Home(props) {
                             "",
                             product.image
                           )}
+                          alt="تصویر محصول"
                           width="130px"
                         />
                       </div>

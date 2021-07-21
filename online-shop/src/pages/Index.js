@@ -1,4 +1,3 @@
-import { Dashboard } from "./Dashboard/Dashboard";
 import { Cart } from "./Cart/Cart";
 import { Finalize } from "./Finalize/Finalize";
 import { Home } from "./Home/Home";
@@ -11,7 +10,6 @@ import { Orders } from "./Dashboard/components/Orderes/Orders";
 import { Wares } from "./Dashboard/components/Wares/Wares";
 import { Stock } from "./Dashboard/components/Stock/Stock";
 export {
-  Dashboard,
   Cart,
   Finalize,
   Home,

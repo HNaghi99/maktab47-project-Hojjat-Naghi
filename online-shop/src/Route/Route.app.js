@@ -4,7 +4,6 @@ import PrivateRoute from "./components/Private.Route";
 import PublicRoute from "./components/Public.Route";
 import {
   Cart,
-  Dashboard,
   Finalize,
   Home,
   List,
@@ -12,9 +11,6 @@ import {
   NotFound,
   ProductDetail,
   ShoppingResult,
-  Orders,
-  Wares,
-  Stock,
 } from "../pages/Index";
 class Router extends Component {
   render() {
@@ -55,7 +51,7 @@ class Router extends Component {
             path="/login"
             exact
           />
-          <PrivateRoute component={Dashboard} path="/dashboard" exact />
+          <PrivateRoute path="/dashboard" exact />
           <Route to="not-found">
             <NotFound />
           </Route>
